@@ -120,7 +120,6 @@ function updateProjectStatus(rowIndex, newStatus) {
     const ss = getSpreadsheet();
     const sheet = ss.getSheetByName(CONFIG.SHEET_NAME);
 
-    // Find the Status column (column E = 5)
     const statusCol = 5;
     sheet.getRange(rowIndex, statusCol).setValue(newStatus);
 
@@ -138,7 +137,6 @@ function updateCell(rowIndex, columnName, value) {
     const ss = getSpreadsheet();
     const sheet = ss.getSheetByName(CONFIG.SHEET_NAME);
 
-    // Get headers to find column index
     const headers = sheet.getRange(CONFIG.HEADER_ROW, 1, 1, sheet.getLastColumn()).getValues()[0];
     const colIndex = headers.findIndex(h => normalizeHeader(h) === columnName) + 1;
 
@@ -161,16 +159,13 @@ function addProject(projectData) {
     const ss = getSpreadsheet();
     const sheet = ss.getSheetByName(CONFIG.SHEET_NAME);
 
-    // Get headers
     const headers = sheet.getRange(CONFIG.HEADER_ROW, 1, 1, sheet.getLastColumn()).getValues()[0];
 
-    // Create row data
     const rowData = headers.map(header => {
       const key = normalizeHeader(header);
       return projectData[key] || '';
     });
 
-    // Append row
     sheet.appendRow(rowData);
 
     return { success: true, rowIndex: sheet.getLastRow() };
@@ -199,29 +194,20 @@ function getSummaryStats() {
       atRisk: 0
     };
 
-    const now = new Date();
-    const currentMonth = now.getMonth();
-    const currentYear = now.getFullYear();
-
     projects.forEach(project => {
-      // By status
       const status = project.status || 'Unknown';
       stats.byStatus[status] = (stats.byStatus[status] || 0) + 1;
 
-      // By category
       const category = project.category || 'Unknown';
       stats.byCategory[category] = (stats.byCategory[category] || 0) + 1;
 
-      // By effort
       const effort = project.effort || 'Unknown';
       stats.byEffort[effort] = (stats.byEffort[effort] || 0) + 1;
 
-      // PLT Help Needed
       if (project.pltHelpNeeded === 'Yes') {
         stats.pltHelpNeeded++;
       }
 
-      // At Risk
       if (status === 'At Risk') {
         stats.atRisk++;
       }
@@ -250,7 +236,6 @@ function getProjectsByMonth(month, year) {
       const monthStart = new Date(year, month - 1, 1);
       const monthEnd = new Date(year, month, 0);
 
-      // Project is in this month if it overlaps with the month
       if (startDate && endDate) {
         return startDate <= monthEnd && endDate >= monthStart;
       } else if (startDate) {
@@ -317,7 +302,7 @@ function parseDate(dateStr) {
 }
 
 /**
- * Get the URL of the active spreadsheet
+ * Get the URL of the spreadsheet
  */
 function getSpreadsheetUrl() {
   try {
