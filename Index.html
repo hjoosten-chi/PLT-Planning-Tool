@@ -571,6 +571,582 @@
       gap: 6px;
       color: var(--gray-600);
     }
+
+    /* Sortable Headers */
+    th.sortable {
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+    }
+
+    th.sortable:hover {
+      background: var(--gray-100);
+    }
+
+    .th-content {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sort-icon {
+      font-size: 16px !important;
+      color: var(--gray-400);
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    th.sortable:hover .sort-icon {
+      color: var(--gray-600);
+    }
+
+    th.sort-asc .sort-icon,
+    th.sort-desc .sort-icon {
+      color: var(--primary);
+    }
+
+    th.sort-desc .sort-icon {
+      transform: rotate(180deg);
+    }
+
+    /* Column Filter Dropdown */
+    .column-filter {
+      position: relative;
+      display: inline-block;
+    }
+
+    .filter-icon {
+      font-size: 16px !important;
+      color: var(--gray-400);
+      cursor: pointer;
+      padding: 2px;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+
+    .filter-icon:hover {
+      color: var(--gray-600);
+      background: var(--gray-200);
+    }
+
+    .filter-icon.active {
+      color: var(--primary);
+      background: rgba(26, 115, 232, 0.1);
+    }
+
+    .column-filter-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 180px;
+      max-height: 250px;
+      overflow-y: auto;
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      z-index: 200;
+      display: none;
+      margin-top: 4px;
+    }
+
+    .column-filter-dropdown.show {
+      display: block;
+    }
+
+    .column-filter-dropdown .filter-search {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .column-filter-dropdown .filter-search input {
+      width: 100%;
+      padding: 6px 10px;
+      border: 1px solid var(--gray-300);
+      border-radius: 4px;
+      font-size: 13px;
+    }
+
+    .column-filter-dropdown .filter-options {
+      padding: 8px 0;
+    }
+
+    .column-filter-dropdown .filter-option {
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--gray-700);
+      transition: background 0.15s;
+    }
+
+    .column-filter-dropdown .filter-option:hover {
+      background: var(--gray-50);
+    }
+
+    .column-filter-dropdown .filter-option input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    .column-filter-dropdown .filter-actions {
+      padding: 8px 12px;
+      border-top: 1px solid var(--gray-200);
+      display: flex;
+      gap: 8px;
+    }
+
+    .column-filter-dropdown .filter-actions button {
+      flex: 1;
+      padding: 6px 12px;
+      font-size: 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      border: none;
+    }
+
+    .column-filter-dropdown .btn-apply {
+      background: var(--primary);
+      color: white;
+    }
+
+    .column-filter-dropdown .btn-clear {
+      background: var(--gray-100);
+      color: var(--gray-700);
+    }
+
+    /* Header cell layout */
+    th .header-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    /* View Toggle */
+    .view-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--gray-100);
+      padding: 4px;
+      border-radius: var(--radius);
+    }
+
+    .view-toggle-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border: none;
+      background: transparent;
+      color: var(--gray-600);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .view-toggle-btn:hover {
+      color: var(--gray-800);
+    }
+
+    .view-toggle-btn.active {
+      background: white;
+      color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .view-toggle-btn .material-icons {
+      font-size: 18px;
+    }
+
+    /* Timeline View */
+    .timeline-section {
+      background: white;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: none;
+    }
+
+    .timeline-section.active {
+      display: block;
+    }
+
+    .table-section.hidden {
+      display: none;
+    }
+
+    .timeline-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .timeline-header h2 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .timeline-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .timeline-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .timeline-nav-btn {
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--gray-300);
+      background: white;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--gray-600);
+      transition: all 0.2s;
+    }
+
+    .timeline-nav-btn:hover {
+      background: var(--gray-50);
+      border-color: var(--gray-400);
+    }
+
+    .timeline-period {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-800);
+      min-width: 120px;
+      text-align: center;
+    }
+
+    .timeline-legend {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 20px;
+      background: var(--gray-50);
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--gray-600);
+    }
+
+    .legend-color {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+    }
+
+    .legend-color.completed { background: var(--success); }
+    .legend-color.on-track { background: var(--primary); }
+    .legend-color.at-risk { background: var(--danger); }
+    .legend-color.unknown { background: var(--gray-400); }
+
+    .timeline-container {
+      overflow-x: auto;
+      position: relative;
+    }
+
+    .timeline-grid {
+      display: flex;
+      min-width: 100%;
+    }
+
+    /* Timeline Left Panel - Project Names */
+    .timeline-projects {
+      flex-shrink: 0;
+      width: 280px;
+      border-right: 1px solid var(--gray-200);
+      background: white;
+      position: sticky;
+      left: 0;
+      z-index: 10;
+    }
+
+    .timeline-projects-header {
+      height: 60px;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-600);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: var(--gray-50);
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .timeline-project-row {
+      height: 48px;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--gray-100);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .timeline-project-row:hover {
+      background: var(--gray-50);
+    }
+
+    .timeline-project-category {
+      font-size: 9px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .timeline-project-category.big-rock { background: #fef7e0; color: #b06000; }
+    .timeline-project-category.pebble { background: #e8f5e9; color: #2e7d32; }
+    .timeline-project-category.sand { background: #f3e5f5; color: #7b1fa2; }
+
+    .timeline-project-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-800);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Timeline Right Panel - Gantt Chart */
+    .timeline-chart {
+      flex: 1;
+      min-width: 800px;
+    }
+
+    .timeline-months-header {
+      height: 60px;
+      display: flex;
+      background: var(--gray-50);
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .timeline-month {
+      flex: 1;
+      min-width: 200px;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--gray-200);
+    }
+
+    .timeline-month:last-child {
+      border-right: none;
+    }
+
+    .timeline-month-name {
+      padding: 8px 12px 4px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-800);
+    }
+
+    .timeline-weeks {
+      display: flex;
+      flex: 1;
+    }
+
+    .timeline-week {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--gray-500);
+      border-right: 1px solid var(--gray-100);
+    }
+
+    .timeline-week:last-child {
+      border-right: none;
+    }
+
+    .timeline-week.today {
+      background: rgba(26, 115, 232, 0.1);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .timeline-chart-row {
+      height: 48px;
+      display: flex;
+      border-bottom: 1px solid var(--gray-100);
+      position: relative;
+    }
+
+    .timeline-chart-cell {
+      flex: 1;
+      min-width: 200px;
+      position: relative;
+      border-right: 1px solid var(--gray-100);
+    }
+
+    .timeline-chart-cell:last-child {
+      border-right: none;
+    }
+
+    /* Today line */
+    .today-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--danger);
+      z-index: 5;
+    }
+
+    .today-line::before {
+      content: 'Today';
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--danger);
+      white-space: nowrap;
+    }
+
+    /* Project Bar */
+    .project-bar {
+      position: absolute;
+      height: 28px;
+      top: 10px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      font-size: 11px;
+      font-weight: 500;
+      color: white;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      z-index: 2;
+    }
+
+    .project-bar:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      z-index: 3;
+    }
+
+    .project-bar.completed { background: var(--success); }
+    .project-bar.on-track { background: var(--primary); }
+    .project-bar.at-risk { background: var(--danger); }
+    .project-bar.unknown { background: var(--gray-400); }
+
+    .project-bar.plt-help::after {
+      content: '!';
+      position: absolute;
+      right: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      background: white;
+      color: var(--danger);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    /* Project Tooltip */
+    .project-tooltip {
+      position: fixed;
+      background: var(--gray-900);
+      color: white;
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      z-index: 1000;
+      max-width: 300px;
+      box-shadow: var(--shadow-lg);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .project-tooltip.show {
+      opacity: 1;
+    }
+
+    .project-tooltip-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .project-tooltip-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 4px;
+    }
+
+    .project-tooltip-label {
+      color: var(--gray-400);
+    }
+
+    .project-tooltip-value {
+      font-weight: 500;
+    }
+
+    /* Empty Timeline State */
+    .timeline-empty {
+      padding: 60px 20px;
+      text-align: center;
+      color: var(--gray-600);
+    }
+
+    .timeline-empty .material-icons {
+      font-size: 48px;
+      color: var(--gray-400);
+      margin-bottom: 16px;
+    }
+
+    /* Color by dropdown */
+    .color-by-select {
+      padding: 6px 12px;
+      border: 1px solid var(--gray-300);
+      border-radius: 6px;
+      font-size: 13px;
+      color: var(--gray-700);
+      background: white;
+      cursor: pointer;
+    }
+
+    .color-by-select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
   </style>
 </head>
 <body>
@@ -680,26 +1256,131 @@
       </div>
     </div>
 
+    <!-- View Toggle -->
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+      <div class="view-toggle">
+        <button class="view-toggle-btn active" id="tableViewBtn" onclick="switchDisplayView('table')">
+          <span class="material-icons">table_rows</span>
+          Table
+        </button>
+        <button class="view-toggle-btn" id="timelineViewBtn" onclick="switchDisplayView('timeline')">
+          <span class="material-icons">view_timeline</span>
+          Timeline
+        </button>
+      </div>
+      <span class="table-info" id="tableInfo">Loading...</span>
+    </div>
+
     <!-- Table -->
-    <div class="table-section">
+    <div class="table-section" id="tableSection">
       <div class="table-header">
         <h2>Projects & Activities</h2>
-        <span class="table-info" id="tableInfo">Loading...</span>
       </div>
       <div class="table-container">
         <table id="projectsTable">
           <thead>
             <tr>
               <th>#</th>
-              <th>Project / Activity</th>
-              <th>Category</th>
-              <th>Deliverable</th>
-              <th>Status</th>
-              <th>PLT Help</th>
-              <th>Dates</th>
-              <th>Functional Owner</th>
-              <th>Program Owner</th>
-              <th>Effort</th>
+              <th class="sortable" data-sort="projectActivityName" onclick="sortByColumn('projectActivityName')">
+                <div class="header-controls">
+                  <div class="th-content">
+                    <span>Project / Activity</span>
+                    <span class="material-icons sort-icon">arrow_upward</span>
+                  </div>
+                  <div class="column-filter" onclick="event.stopPropagation()">
+                    <span class="material-icons filter-icon" onclick="toggleColumnFilter(event, 'projectActivityName')">filter_list</span>
+                    <div class="column-filter-dropdown" id="filter-projectActivityName"></div>
+                  </div>
+                </div>
+              </th>
+              <th class="sortable" data-sort="category" onclick="sortByColumn('category')">
+                <div class="header-controls">
+                  <div class="th-content">
+                    <span>Category</span>
+                    <span class="material-icons sort-icon">arrow_upward</span>
+                  </div>
+                  <div class="column-filter" onclick="event.stopPropagation()">
+                    <span class="material-icons filter-icon" onclick="toggleColumnFilter(event, 'category')">filter_list</span>
+                    <div class="column-filter-dropdown" id="filter-category"></div>
+                  </div>
+                </div>
+              </th>
+              <th class="sortable" data-sort="deliverable" onclick="sortByColumn('deliverable')">
+                <div class="header-controls">
+                  <div class="th-content">
+                    <span>Deliverable</span>
+                    <span class="material-icons sort-icon">arrow_upward</span>
+                  </div>
+                </div>
+              </th>
+              <th class="sortable" data-sort="status" onclick="sortByColumn('status')">
+                <div class="header-controls">
+                  <div class="th-content">
+                    <span>Status</span>
+                    <span class="material-icons sort-icon">arrow_upward</span>
+                  </div>
+                  <div class="column-filter" onclick="event.stopPropagation()">
+                    <span class="material-icons filter-icon" onclick="toggleColumnFilter(event, 'status')">filter_list</span>
+                    <div class="column-filter-dropdown" id="filter-status"></div>
+                  </div>
+                </div>
+              </th>
+              <th class="sortable" data-sort="pltHelpNeeded" onclick="sortByColumn('pltHelpNeeded')">
+                <div class="header-controls">
+                  <div class="th-content">
+                    <span>PLT Help</span>
+                    <span class="material-icons sort-icon">arrow_upward</span>
+                  </div>
+                  <div class="column-filter" onclick="event.stopPropagation()">
+                    <span class="material-icons filter-icon" onclick="toggleColumnFilter(event, 'pltHelpNeeded')">filter_list</span>
+                    <div class="column-filter-dropdown" id="filter-pltHelpNeeded"></div>
+                  </div>
+                </div>
+              </th>
+              <th class="sortable" data-sort="startDate" onclick="sortByColumn('startDate')">
+                <div class="header-controls">
+                  <div class="th-content">
+                    <span>Dates</span>
+                    <span class="material-icons sort-icon">arrow_upward</span>
+                  </div>
+                </div>
+              </th>
+              <th class="sortable" data-sort="functionalOwnerOfDeliverable" onclick="sortByColumn('functionalOwnerOfDeliverable')">
+                <div class="header-controls">
+                  <div class="th-content">
+                    <span>Functional Owner</span>
+                    <span class="material-icons sort-icon">arrow_upward</span>
+                  </div>
+                  <div class="column-filter" onclick="event.stopPropagation()">
+                    <span class="material-icons filter-icon" onclick="toggleColumnFilter(event, 'functionalOwnerOfDeliverable')">filter_list</span>
+                    <div class="column-filter-dropdown" id="filter-functionalOwnerOfDeliverable"></div>
+                  </div>
+                </div>
+              </th>
+              <th class="sortable" data-sort="programOwnerLeadContact" onclick="sortByColumn('programOwnerLeadContact')">
+                <div class="header-controls">
+                  <div class="th-content">
+                    <span>Program Owner</span>
+                    <span class="material-icons sort-icon">arrow_upward</span>
+                  </div>
+                  <div class="column-filter" onclick="event.stopPropagation()">
+                    <span class="material-icons filter-icon" onclick="toggleColumnFilter(event, 'programOwnerLeadContact')">filter_list</span>
+                    <div class="column-filter-dropdown" id="filter-programOwnerLeadContact"></div>
+                  </div>
+                </div>
+              </th>
+              <th class="sortable" data-sort="effort" onclick="sortByColumn('effort')">
+                <div class="header-controls">
+                  <div class="th-content">
+                    <span>Effort</span>
+                    <span class="material-icons sort-icon">arrow_upward</span>
+                  </div>
+                  <div class="column-filter" onclick="event.stopPropagation()">
+                    <span class="material-icons filter-icon" onclick="toggleColumnFilter(event, 'effort')">filter_list</span>
+                    <div class="column-filter-dropdown" id="filter-effort"></div>
+                  </div>
+                </div>
+              </th>
             </tr>
           </thead>
           <tbody id="projectsBody">
@@ -715,7 +1396,63 @@
         </table>
       </div>
     </div>
+
+    <!-- Timeline View -->
+    <div class="timeline-section" id="timelineSection">
+      <div class="timeline-header">
+        <h2>Project Timeline</h2>
+        <div class="timeline-controls">
+          <label style="font-size: 13px; color: var(--gray-600); display: flex; align-items: center; gap: 8px;">
+            Color by:
+            <select class="color-by-select" id="colorBySelect" onchange="renderTimeline()">
+              <option value="status">Status</option>
+              <option value="category">Category</option>
+            </select>
+          </label>
+          <div class="timeline-nav">
+            <button class="timeline-nav-btn" onclick="navigateTimeline(-1)">
+              <span class="material-icons" style="font-size: 18px;">chevron_left</span>
+            </button>
+            <span class="timeline-period" id="timelinePeriod">Q1 2026</span>
+            <button class="timeline-nav-btn" onclick="navigateTimeline(1)">
+              <span class="material-icons" style="font-size: 18px;">chevron_right</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-legend">
+        <span style="font-size: 12px; font-weight: 500; color: var(--gray-700); margin-right: 8px;">Legend:</span>
+        <div class="legend-item">
+          <div class="legend-color completed"></div>
+          <span>Completed</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color on-track"></div>
+          <span>On Track</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color at-risk"></div>
+          <span>At Risk</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color unknown"></div>
+          <span>Unknown</span>
+        </div>
+        <div class="legend-item" style="margin-left: 16px;">
+          <span style="width: 16px; height: 16px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: var(--danger); border: 1px solid var(--gray-200);">!</span>
+          <span>PLT Help Needed</span>
+        </div>
+      </div>
+      <div class="timeline-container" id="timelineContainer">
+        <div class="timeline-grid" id="timelineGrid">
+          <!-- Timeline content rendered by JavaScript -->
+        </div>
+      </div>
+    </div>
   </main>
+
+  <!-- Project Tooltip -->
+  <div class="project-tooltip" id="projectTooltip"></div>
 
   <!-- Toast -->
   <div class="toast" id="toast"></div>
@@ -726,9 +1463,22 @@
     let filteredProjects = [];
     let filterOptions = {};
     let currentView = 'all';
+    let currentSort = { column: null, direction: 'asc' };
+    let columnFilters = {};
+    let currentDisplayView = 'table';
+    let timelineStartDate = new Date(2026, 0, 1); // January 2026
+    let timelineMonths = 3; // Show 3 months at a time
 
     // Initialize on load
     document.addEventListener('DOMContentLoaded', init);
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.column-filter')) {
+        document.querySelectorAll('.column-filter-dropdown').forEach(d => d.classList.remove('show'));
+        document.querySelectorAll('.filter-icon').forEach(i => i.classList.remove('active'));
+      }
+    });
 
     async function init() {
       await Promise.all([
@@ -847,6 +1597,13 @@
         // Effort filter
         if (effort && project.effort !== effort) return false;
 
+        // Column filters (from header dropdowns)
+        for (const [column, values] of Object.entries(columnFilters)) {
+          if (values.length > 0 && !values.includes(project[column])) {
+            return false;
+          }
+        }
+
         return true;
       });
 
@@ -876,8 +1633,34 @@
         });
       }
 
+      // Re-apply current sort if active
+      if (currentSort.column) {
+        filteredProjects.sort((a, b) => {
+          let valA = a[currentSort.column] || '';
+          let valB = b[currentSort.column] || '';
+
+          if (currentSort.column === 'startDate' || currentSort.column === 'endDate') {
+            valA = parseDate(valA) || new Date(0);
+            valB = parseDate(valB) || new Date(0);
+            return currentSort.direction === 'asc' ? valA - valB : valB - valA;
+          }
+
+          if (typeof valA === 'string') valA = valA.toLowerCase();
+          if (typeof valB === 'string') valB = valB.toLowerCase();
+
+          if (valA < valB) return currentSort.direction === 'asc' ? -1 : 1;
+          if (valA > valB) return currentSort.direction === 'asc' ? 1 : -1;
+          return 0;
+        });
+      }
+
       renderTable();
       updateTableInfo();
+
+      // Also update timeline if it's visible
+      if (currentDisplayView === 'timeline') {
+        renderTimeline();
+      }
     }
 
     function parseDate(dateStr) {
@@ -1011,6 +1794,17 @@
       document.getElementById('filterOwner').value = '';
       document.getElementById('filterPltHelp').value = '';
       document.getElementById('filterEffort').value = '';
+
+      // Clear column filters
+      columnFilters = {};
+      updateFilterIcons();
+
+      // Reset sort
+      currentSort = { column: null, direction: 'asc' };
+      document.querySelectorAll('th.sortable').forEach(th => {
+        th.classList.remove('sort-asc', 'sort-desc');
+      });
+
       applyFilters();
     }
 
@@ -1063,6 +1857,436 @@
       const div = document.createElement('div');
       div.textContent = text;
       return div.innerHTML;
+    }
+
+    // Sorting functionality
+    function sortByColumn(column) {
+      // Determine sort direction
+      if (currentSort.column === column) {
+        currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+      } else {
+        currentSort.column = column;
+        currentSort.direction = 'asc';
+      }
+
+      // Update header classes
+      document.querySelectorAll('th.sortable').forEach(th => {
+        th.classList.remove('sort-asc', 'sort-desc');
+        if (th.dataset.sort === column) {
+          th.classList.add(currentSort.direction === 'asc' ? 'sort-asc' : 'sort-desc');
+        }
+      });
+
+      // Sort the data
+      filteredProjects.sort((a, b) => {
+        let valA = a[column] || '';
+        let valB = b[column] || '';
+
+        // Handle dates
+        if (column === 'startDate' || column === 'endDate') {
+          valA = parseDate(valA) || new Date(0);
+          valB = parseDate(valB) || new Date(0);
+          return currentSort.direction === 'asc' ? valA - valB : valB - valA;
+        }
+
+        // Handle strings
+        if (typeof valA === 'string') valA = valA.toLowerCase();
+        if (typeof valB === 'string') valB = valB.toLowerCase();
+
+        if (valA < valB) return currentSort.direction === 'asc' ? -1 : 1;
+        if (valA > valB) return currentSort.direction === 'asc' ? 1 : -1;
+        return 0;
+      });
+
+      renderTable();
+    }
+
+    // Column filter functionality
+    function toggleColumnFilter(event, column) {
+      event.stopPropagation();
+
+      const dropdown = document.getElementById('filter-' + column);
+      const icon = event.target;
+      const isOpen = dropdown.classList.contains('show');
+
+      // Close all other dropdowns
+      document.querySelectorAll('.column-filter-dropdown').forEach(d => d.classList.remove('show'));
+      document.querySelectorAll('.filter-icon').forEach(i => i.classList.remove('active'));
+
+      if (!isOpen) {
+        populateColumnFilter(column);
+        dropdown.classList.add('show');
+        icon.classList.add('active');
+      }
+    }
+
+    function populateColumnFilter(column) {
+      const dropdown = document.getElementById('filter-' + column);
+
+      // Get unique values for this column
+      const values = [...new Set(allProjects.map(p => p[column]).filter(Boolean))].sort();
+      const selectedValues = columnFilters[column] || [];
+
+      dropdown.innerHTML = `
+        <div class="filter-search">
+          <input type="text" placeholder="Search..." oninput="filterColumnOptions(event, '${column}')">
+        </div>
+        <div class="filter-options">
+          ${values.map(val => `
+            <label class="filter-option" data-value="${escapeHtml(val)}">
+              <input type="checkbox" value="${escapeHtml(val)}" ${selectedValues.includes(val) ? 'checked' : ''}>
+              <span>${escapeHtml(val)}</span>
+            </label>
+          `).join('')}
+        </div>
+        <div class="filter-actions">
+          <button class="btn-clear" onclick="clearColumnFilter('${column}')">Clear</button>
+          <button class="btn-apply" onclick="applyColumnFilter('${column}')">Apply</button>
+        </div>
+      `;
+    }
+
+    function filterColumnOptions(event, column) {
+      const searchValue = event.target.value.toLowerCase();
+      const dropdown = document.getElementById('filter-' + column);
+      const options = dropdown.querySelectorAll('.filter-option');
+
+      options.forEach(option => {
+        const value = option.dataset.value.toLowerCase();
+        option.style.display = value.includes(searchValue) ? 'flex' : 'none';
+      });
+    }
+
+    function applyColumnFilter(column) {
+      const dropdown = document.getElementById('filter-' + column);
+      const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]:checked');
+      const selectedValues = Array.from(checkboxes).map(cb => cb.value);
+
+      if (selectedValues.length > 0) {
+        columnFilters[column] = selectedValues;
+      } else {
+        delete columnFilters[column];
+      }
+
+      // Update filter icon to show active state
+      updateFilterIcons();
+
+      // Close dropdown
+      dropdown.classList.remove('show');
+
+      // Reapply all filters
+      applyFilters();
+    }
+
+    function clearColumnFilter(column) {
+      delete columnFilters[column];
+      updateFilterIcons();
+
+      const dropdown = document.getElementById('filter-' + column);
+      dropdown.classList.remove('show');
+
+      applyFilters();
+    }
+
+    function updateFilterIcons() {
+      document.querySelectorAll('.column-filter').forEach(cf => {
+        const dropdown = cf.querySelector('.column-filter-dropdown');
+        const icon = cf.querySelector('.filter-icon');
+        if (dropdown && icon) {
+          const column = dropdown.id.replace('filter-', '');
+          if (columnFilters[column] && columnFilters[column].length > 0) {
+            icon.classList.add('active');
+          } else {
+            icon.classList.remove('active');
+          }
+        }
+      });
+    }
+
+    // ==================== Timeline View Functions ====================
+
+    function switchDisplayView(view) {
+      currentDisplayView = view;
+
+      // Update toggle buttons
+      document.getElementById('tableViewBtn').classList.toggle('active', view === 'table');
+      document.getElementById('timelineViewBtn').classList.toggle('active', view === 'timeline');
+
+      // Show/hide sections
+      document.getElementById('tableSection').classList.toggle('hidden', view !== 'table');
+      document.getElementById('timelineSection').classList.toggle('active', view === 'timeline');
+
+      // Render timeline if switching to timeline view
+      if (view === 'timeline') {
+        renderTimeline();
+      }
+    }
+
+    function navigateTimeline(direction) {
+      timelineStartDate = new Date(
+        timelineStartDate.getFullYear(),
+        timelineStartDate.getMonth() + (direction * timelineMonths),
+        1
+      );
+      renderTimeline();
+    }
+
+    function renderTimeline() {
+      const container = document.getElementById('timelineGrid');
+      const colorBy = document.getElementById('colorBySelect').value;
+
+      // Update period display
+      updateTimelinePeriod();
+
+      // Get projects with valid dates
+      const projectsWithDates = filteredProjects.filter(p => p.startDate || p.endDate);
+
+      if (projectsWithDates.length === 0) {
+        container.innerHTML = `
+          <div class="timeline-empty">
+            <span class="material-icons">event_busy</span>
+            <p>No projects with dates found.</p>
+          </div>
+        `;
+        return;
+      }
+
+      // Calculate timeline range
+      const endDate = new Date(
+        timelineStartDate.getFullYear(),
+        timelineStartDate.getMonth() + timelineMonths,
+        0
+      );
+
+      // Build months data
+      const months = [];
+      for (let i = 0; i < timelineMonths; i++) {
+        const monthDate = new Date(timelineStartDate.getFullYear(), timelineStartDate.getMonth() + i, 1);
+        const daysInMonth = new Date(monthDate.getFullYear(), monthDate.getMonth() + 1, 0).getDate();
+        months.push({
+          date: monthDate,
+          name: monthDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
+          shortName: monthDate.toLocaleDateString('en-US', { month: 'short' }),
+          days: daysInMonth,
+          weeks: Math.ceil(daysInMonth / 7)
+        });
+      }
+
+      // Calculate total days for percentage calculations
+      const totalDays = months.reduce((sum, m) => sum + m.days, 0);
+
+      // Build HTML
+      let html = `
+        <div class="timeline-projects">
+          <div class="timeline-projects-header">Project / Activity</div>
+          ${projectsWithDates.map(project => `
+            <div class="timeline-project-row" onclick="showProjectDetails(${project.rowIndex})">
+              ${project.category ? `<span class="timeline-project-category ${getCategoryClass(project.category)}">${escapeHtml(project.category)}</span>` : ''}
+              <span class="timeline-project-name" title="${escapeHtml(project.projectActivityName || '')}">${escapeHtml(project.projectActivityName || '-')}</span>
+            </div>
+          `).join('')}
+        </div>
+        <div class="timeline-chart">
+          <div class="timeline-months-header">
+            ${months.map(month => `
+              <div class="timeline-month" style="flex: ${month.days};">
+                <div class="timeline-month-name">${month.name}</div>
+                <div class="timeline-weeks">
+                  ${Array.from({length: month.weeks}, (_, i) => {
+                    const weekStart = i * 7 + 1;
+                    const weekEnd = Math.min((i + 1) * 7, month.days);
+                    const isToday = isWeekCurrent(month.date, weekStart, weekEnd);
+                    return `<div class="timeline-week ${isToday ? 'today' : ''}">${month.shortName} ${weekStart}-${weekEnd}</div>`;
+                  }).join('')}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+          ${projectsWithDates.map(project => renderTimelineRow(project, months, totalDays, colorBy)).join('')}
+        </div>
+      `;
+
+      container.innerHTML = html;
+
+      // Add today line if in range
+      addTodayLine(months, totalDays);
+    }
+
+    function renderTimelineRow(project, months, totalDays, colorBy) {
+      const startDate = parseDate(project.startDate);
+      const endDate = parseDate(project.endDate);
+
+      if (!startDate && !endDate) {
+        return `<div class="timeline-chart-row">
+          ${months.map(m => `<div class="timeline-chart-cell" style="flex: ${m.days};"></div>`).join('')}
+        </div>`;
+      }
+
+      // Calculate bar position
+      const timelineStart = new Date(timelineStartDate);
+      const timelineEnd = new Date(timelineStartDate.getFullYear(), timelineStartDate.getMonth() + timelineMonths, 0);
+
+      const projectStart = startDate || endDate;
+      const projectEnd = endDate || startDate;
+
+      // Clamp to timeline bounds
+      const barStart = new Date(Math.max(projectStart.getTime(), timelineStart.getTime()));
+      const barEnd = new Date(Math.min(projectEnd.getTime(), timelineEnd.getTime()));
+
+      // Check if project is in view
+      if (barStart > timelineEnd || barEnd < timelineStart) {
+        return `<div class="timeline-chart-row">
+          ${months.map(m => `<div class="timeline-chart-cell" style="flex: ${m.days};"></div>`).join('')}
+        </div>`;
+      }
+
+      // Calculate percentages
+      const startDays = daysBetween(timelineStart, barStart);
+      const duration = daysBetween(barStart, barEnd) + 1;
+      const leftPercent = (startDays / totalDays) * 100;
+      const widthPercent = (duration / totalDays) * 100;
+
+      // Get color class
+      let colorClass = 'unknown';
+      if (colorBy === 'status') {
+        colorClass = getStatusClass(project.status);
+      } else if (colorBy === 'category') {
+        colorClass = getCategoryColorClass(project.category);
+      }
+
+      const pltHelpClass = project.pltHelpNeeded === 'Yes' ? 'plt-help' : '';
+
+      return `
+        <div class="timeline-chart-row">
+          ${months.map(m => `<div class="timeline-chart-cell" style="flex: ${m.days};"></div>`).join('')}
+          <div class="project-bar ${colorClass} ${pltHelpClass}"
+               style="left: ${leftPercent}%; width: ${Math.max(widthPercent, 2)}%;"
+               onmouseenter="showTooltip(event, ${JSON.stringify(project).replace(/"/g, '&quot;')})"
+               onmouseleave="hideTooltip()"
+               onmousemove="moveTooltip(event)">
+            ${escapeHtml(project.projectActivityName || '')}
+          </div>
+        </div>
+      `;
+    }
+
+    function updateTimelinePeriod() {
+      const endMonth = new Date(timelineStartDate.getFullYear(), timelineStartDate.getMonth() + timelineMonths - 1, 1);
+      const startStr = timelineStartDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+      const endStr = endMonth.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+      document.getElementById('timelinePeriod').textContent = `${startStr} - ${endStr}`;
+    }
+
+    function daysBetween(date1, date2) {
+      const oneDay = 24 * 60 * 60 * 1000;
+      return Math.round((date2 - date1) / oneDay);
+    }
+
+    function isWeekCurrent(monthDate, weekStart, weekEnd) {
+      const today = new Date();
+      const weekStartDate = new Date(monthDate.getFullYear(), monthDate.getMonth(), weekStart);
+      const weekEndDate = new Date(monthDate.getFullYear(), monthDate.getMonth(), weekEnd);
+      return today >= weekStartDate && today <= weekEndDate;
+    }
+
+    function addTodayLine(months, totalDays) {
+      const today = new Date();
+      const timelineStart = new Date(timelineStartDate);
+      const timelineEnd = new Date(timelineStartDate.getFullYear(), timelineStartDate.getMonth() + timelineMonths, 0);
+
+      if (today >= timelineStart && today <= timelineEnd) {
+        const daysFromStart = daysBetween(timelineStart, today);
+        const leftPercent = (daysFromStart / totalDays) * 100;
+
+        const chart = document.querySelector('.timeline-chart');
+        if (chart) {
+          const existingLine = chart.querySelector('.today-line');
+          if (existingLine) existingLine.remove();
+
+          const line = document.createElement('div');
+          line.className = 'today-line';
+          line.style.left = `calc(${leftPercent}% + 280px)`;
+          chart.style.position = 'relative';
+          chart.appendChild(line);
+        }
+      }
+    }
+
+    function getStatusClass(status) {
+      if (!status) return 'unknown';
+      const s = status.toLowerCase();
+      if (s === 'completed') return 'completed';
+      if (s === 'on track') return 'on-track';
+      if (s === 'at risk') return 'at-risk';
+      return 'unknown';
+    }
+
+    function getCategoryClass(category) {
+      if (!category) return '';
+      return category.toLowerCase().replace(/\s+/g, '-');
+    }
+
+    function getCategoryColorClass(category) {
+      if (!category) return 'unknown';
+      const c = category.toLowerCase();
+      if (c === 'big rock') return 'at-risk'; // Orange-ish
+      if (c === 'pebble') return 'completed'; // Green
+      if (c === 'sand') return 'on-track'; // Blue
+      return 'unknown';
+    }
+
+    // Tooltip functions
+    function showTooltip(event, project) {
+      const tooltip = document.getElementById('projectTooltip');
+      const startDate = project.startDate || '-';
+      const endDate = project.endDate || '-';
+
+      tooltip.innerHTML = `
+        <div class="project-tooltip-title">${escapeHtml(project.projectActivityName || '-')}</div>
+        <div class="project-tooltip-row">
+          <span class="project-tooltip-label">Category:</span>
+          <span class="project-tooltip-value">${escapeHtml(project.category || '-')}</span>
+        </div>
+        <div class="project-tooltip-row">
+          <span class="project-tooltip-label">Status:</span>
+          <span class="project-tooltip-value">${escapeHtml(project.status || '-')}</span>
+        </div>
+        <div class="project-tooltip-row">
+          <span class="project-tooltip-label">Dates:</span>
+          <span class="project-tooltip-value">${startDate} - ${endDate}</span>
+        </div>
+        <div class="project-tooltip-row">
+          <span class="project-tooltip-label">Owner:</span>
+          <span class="project-tooltip-value">${escapeHtml(project.functionalOwnerOfDeliverable || '-')}</span>
+        </div>
+        <div class="project-tooltip-row">
+          <span class="project-tooltip-label">Effort:</span>
+          <span class="project-tooltip-value">${escapeHtml(project.effort || '-')}</span>
+        </div>
+        ${project.pltHelpNeeded === 'Yes' ? '<div style="margin-top: 8px; color: #ea4335; font-weight: 500;">⚠ PLT Help Needed</div>' : ''}
+      `;
+
+      tooltip.style.left = event.pageX + 15 + 'px';
+      tooltip.style.top = event.pageY + 15 + 'px';
+      tooltip.classList.add('show');
+    }
+
+    function hideTooltip() {
+      document.getElementById('projectTooltip').classList.remove('show');
+    }
+
+    function moveTooltip(event) {
+      const tooltip = document.getElementById('projectTooltip');
+      tooltip.style.left = event.pageX + 15 + 'px';
+      tooltip.style.top = event.pageY + 15 + 'px';
+    }
+
+    function showProjectDetails(rowIndex) {
+      // Find the project and could show a modal or scroll to it in table view
+      const project = allProjects.find(p => p.rowIndex === rowIndex);
+      if (project) {
+        showToast(`${project.projectActivityName}: ${project.status || 'No status'}`, 'info');
+      }
     }
   </script>
 </body>

@@ -5,6 +5,7 @@
 
 // Configuration
 const CONFIG = {
+  // IMPORTANT: Set your Google Sheet ID here
   SPREADSHEET_ID: '1VSDqgK1ubsEVPyw011oQpC6d4BNFeXCYMw6h7TdDYQo',
   SHEET_NAME: 'Sample Template - Source Data',
   SETTINGS_SHEET: 'Settings',
