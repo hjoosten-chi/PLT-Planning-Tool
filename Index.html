@@ -1033,12 +1033,19 @@
     }
 
     function openSpreadsheet() {
-      const ss = google.script.run.withSuccessHandler(url => {
-        if (url) window.open(url, '_blank');
-      }).getSpreadsheetUrl ? google.script.run.getSpreadsheetUrl() : null;
-
-      // Fallback - this won't work but shows intent
       showToast('Opening spreadsheet...', 'info');
+      google.script.run
+        .withSuccessHandler(function(url) {
+          if (url) {
+            window.open(url, '_blank');
+          } else {
+            showToast('Could not get spreadsheet URL', 'error');
+          }
+        })
+        .withFailureHandler(function(error) {
+          showToast('Error opening spreadsheet: ' + error, 'error');
+        })
+        .getSpreadsheetUrl();
     }
 
     function showToast(message, type = 'info') {
