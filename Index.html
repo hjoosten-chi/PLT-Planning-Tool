@@ -1,1 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PLT Planning Tool</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1a73e8;
+      --primary-dark: #1557b0;
+      --success: #34a853;
+      --warning: #fbbc04;
+      --danger: #ea4335;
+      --gray-50: #f8f9fa;
+      --gray-100: #f1f3f4;
+      --gray-200: #e8eaed;
+      --gray-300: #dadce0;
+      --gray-400: #bdc1c6;
+      --gray-500: #9aa0a6;
+      --gray-600: #80868b;
+      --gray-700: #5f6368;
+      --gray-800: #3c4043;
+      --gray-900: #202124;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 15px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.05);
+      --radius: 8px;
+      --radius-lg: 12px;
+    }
 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--gray-50);
+      color: var(--gray-900);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      background: white;
+      border-bottom: 1px solid var(--gray-200);
+      padding: 16px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-content {
+      max-width: 1600px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary) 0%, #4285f4 100%);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .logo h1 {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--gray-900);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--gray-700);
+      border: 1px solid var(--gray-300);
+    }
+
+    .btn-secondary:hover {
+      background: var(--gray-50);
+      border-color: var(--gray-400);
+    }
+
+    .btn-icon {
+      padding: 8px;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--gray-600);
+    }
+
+    .btn-icon:hover {
+      background: var(--gray-100);
+    }
+
+    /* Main Layout */
+    .main {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    /* Stats Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .stat-card .label {
+      font-size: 13px;
+      color: var(--gray-600);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .stat-card .value {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--gray-900);
+    }
+
+    .stat-card .subtext {
+      font-size: 13px;
+      color: var(--gray-500);
+      margin-top: 4px;
+    }
+
+    .stat-card.success .value { color: var(--success); }
+    .stat-card.warning .value { color: var(--warning); }
+    .stat-card.danger .value { color: var(--danger); }
+    .stat-card.primary .value { color: var(--primary); }
+
+    /* Filters */
+    .filters-section {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .filters-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .filters-header h2 {
+      font-size: 16px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .filters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    .filter-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--gray-600);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .filter-group select,
+    .filter-group input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--gray-300);
+      border-radius: var(--radius);
+      font-size: 14px;
+      color: var(--gray-800);
+      background: white;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .filter-group select:focus,
+    .filter-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
+    }
+
+    /* Table */
+    .table-section {
+      background: white;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .table-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .table-header h2 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .table-info {
+      font-size: 14px;
+      color: var(--gray-600);
+    }
+
+    .table-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    th {
+      background: var(--gray-50);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-600);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      position: sticky;
+      top: 0;
+    }
+
+    tr:hover {
+      background: var(--gray-50);
+    }
+
+    td {
+      font-size: 14px;
+      color: var(--gray-800);
+    }
+
+    /* Status Badges */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .status-badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .status-completed {
+      background: #e6f4ea;
+      color: #137333;
+    }
+    .status-completed::before { background: var(--success); }
+
+    .status-on-track {
+      background: #e8f0fe;
+      color: #1967d2;
+    }
+    .status-on-track::before { background: var(--primary); }
+
+    .status-at-risk {
+      background: #fce8e6;
+      color: #c5221f;
+    }
+    .status-at-risk::before { background: var(--danger); }
+
+    .status-default {
+      background: var(--gray-100);
+      color: var(--gray-700);
+    }
+    .status-default::before { background: var(--gray-500); }
+
+    /* Category Badges */
+    .category-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .category-big-rock {
+      background: #fef7e0;
+      color: #b06000;
+    }
+
+    .category-pebble {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .category-sand {
+      background: #f3e5f5;
+      color: #7b1fa2;
+    }
+
+    /* Effort Badges */
+    .effort-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .effort-s { background: #e8f5e9; color: #2e7d32; }
+    .effort-m { background: #fff3e0; color: #e65100; }
+    .effort-l { background: #fce4ec; color: #c2185b; }
+
+    /* PLT Help Badge */
+    .plt-help-yes {
+      color: var(--danger);
+      font-weight: 500;
+    }
+
+    .plt-help-no {
+      color: var(--gray-500);
+    }
+
+    /* Deliverable Cell */
+    .deliverable-cell {
+      max-width: 300px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .deliverable-cell:hover {
+      white-space: normal;
+      overflow: visible;
+    }
+
+    /* Loading State */
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      color: var(--gray-600);
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--gray-200);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 16px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--gray-600);
+    }
+
+    .empty-state .material-icons {
+      font-size: 48px;
+      color: var(--gray-400);
+      margin-bottom: 16px;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      background: var(--gray-100);
+      padding: 4px;
+      border-radius: var(--radius);
+      margin-bottom: 24px;
+    }
+
+    .tab {
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-600);
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      background: transparent;
+    }
+
+    .tab:hover {
+      color: var(--gray-800);
+    }
+
+    .tab.active {
+      background: white;
+      color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header-content {
+        flex-wrap: wrap;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .filters-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .main {
+        padding: 16px;
+      }
+    }
+
+    /* Toast Notifications */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 16px 24px;
+      background: var(--gray-800);
+      color: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast.success { background: var(--success); }
+    .toast.error { background: var(--danger); }
+
+    /* Owner cell */
+    .owner-cell {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* Date cell */
+    .date-cell {
+      white-space: nowrap;
+      font-size: 13px;
+    }
+
+    .date-range {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--gray-600);
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-content">
+      <div class="logo">
+        <div class="logo-icon">
+          <span class="material-icons">dashboard</span>
+        </div>
+        <h1>PLT Planning Tool</h1>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-secondary" onclick="refreshData()">
+          <span class="material-icons" style="font-size: 18px;">refresh</span>
+          Refresh
+        </button>
+        <button class="btn btn-primary" onclick="openSpreadsheet()">
+          <span class="material-icons" style="font-size: 18px;">table_chart</span>
+          Open Spreadsheet
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" data-view="all" onclick="switchView('all')">All Projects</button>
+      <button class="tab" data-view="jan" onclick="switchView('jan')">January 2026</button>
+      <button class="tab" data-view="feb" onclick="switchView('feb')">February 2026</button>
+      <button class="tab" data-view="mar" onclick="switchView('mar')">March 2026</button>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-card">
+        <div class="label">Total Projects</div>
+        <div class="value" id="statTotal">-</div>
+      </div>
+      <div class="stat-card success">
+        <div class="label">Completed</div>
+        <div class="value" id="statCompleted">-</div>
+      </div>
+      <div class="stat-card primary">
+        <div class="label">On Track</div>
+        <div class="value" id="statOnTrack">-</div>
+      </div>
+      <div class="stat-card danger">
+        <div class="label">At Risk</div>
+        <div class="value" id="statAtRisk">-</div>
+      </div>
+      <div class="stat-card warning">
+        <div class="label">PLT Help Needed</div>
+        <div class="value" id="statPltHelp">-</div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters-section">
+      <div class="filters-header">
+        <h2>
+          <span class="material-icons" style="font-size: 20px;">filter_list</span>
+          Filters
+        </h2>
+        <button class="btn btn-secondary" onclick="clearFilters()">Clear All</button>
+      </div>
+      <div class="filters-grid">
+        <div class="filter-group">
+          <label>Search</label>
+          <input type="text" id="filterSearch" placeholder="Search projects..." oninput="applyFilters()">
+        </div>
+        <div class="filter-group">
+          <label>Category</label>
+          <select id="filterCategory" onchange="applyFilters()">
+            <option value="">All Categories</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Status</label>
+          <select id="filterStatus" onchange="applyFilters()">
+            <option value="">All Statuses</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Functional Owner</label>
+          <select id="filterOwner" onchange="applyFilters()">
+            <option value="">All Owners</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>PLT Help Needed</label>
+          <select id="filterPltHelp" onchange="applyFilters()">
+            <option value="">All</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Effort</label>
+          <select id="filterEffort" onchange="applyFilters()">
+            <option value="">All Efforts</option>
+            <option value="S">Small (S)</option>
+            <option value="M">Medium (M)</option>
+            <option value="L">Large (L)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-section">
+      <div class="table-header">
+        <h2>Projects & Activities</h2>
+        <span class="table-info" id="tableInfo">Loading...</span>
+      </div>
+      <div class="table-container">
+        <table id="projectsTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Project / Activity</th>
+              <th>Category</th>
+              <th>Deliverable</th>
+              <th>Status</th>
+              <th>PLT Help</th>
+              <th>Dates</th>
+              <th>Functional Owner</th>
+              <th>Program Owner</th>
+              <th>Effort</th>
+            </tr>
+          </thead>
+          <tbody id="projectsBody">
+            <tr>
+              <td colspan="10">
+                <div class="loading">
+                  <div class="spinner"></div>
+                  <span>Loading projects...</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // Global state
+    let allProjects = [];
+    let filteredProjects = [];
+    let filterOptions = {};
+    let currentView = 'all';
+
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', init);
+
+    async function init() {
+      await Promise.all([
+        loadProjects(),
+        loadFilterOptions()
+      ]);
+    }
+
+    async function loadProjects() {
+      try {
+        const result = await new Promise((resolve, reject) => {
+          google.script.run
+            .withSuccessHandler(resolve)
+            .withFailureHandler(reject)
+            .getProjects();
+        });
+
+        if (result.error) {
+          showToast(result.error, 'error');
+          return;
+        }
+
+        allProjects = result.data || [];
+        applyFilters();
+        updateStats();
+      } catch (error) {
+        showToast('Failed to load projects: ' + error, 'error');
+        document.getElementById('projectsBody').innerHTML = `
+          <tr>
+            <td colspan="10">
+              <div class="empty-state">
+                <span class="material-icons">error_outline</span>
+                <p>Failed to load projects. Please try again.</p>
+              </div>
+            </td>
+          </tr>
+        `;
+      }
+    }
+
+    async function loadFilterOptions() {
+      try {
+        const result = await new Promise((resolve, reject) => {
+          google.script.run
+            .withSuccessHandler(resolve)
+            .withFailureHandler(reject)
+            .getFilterOptions();
+        });
+
+        if (result.error) return;
+
+        filterOptions = result;
+        populateFilterDropdowns();
+      } catch (error) {
+        console.error('Failed to load filter options:', error);
+      }
+    }
+
+    function populateFilterDropdowns() {
+      const categorySelect = document.getElementById('filterCategory');
+      const statusSelect = document.getElementById('filterStatus');
+      const ownerSelect = document.getElementById('filterOwner');
+
+      if (filterOptions.categories) {
+        filterOptions.categories.forEach(cat => {
+          categorySelect.innerHTML += `<option value="${cat}">${cat}</option>`;
+        });
+      }
+
+      if (filterOptions.statuses) {
+        filterOptions.statuses.forEach(status => {
+          statusSelect.innerHTML += `<option value="${status}">${status}</option>`;
+        });
+      }
+
+      if (filterOptions.functionalOwners) {
+        filterOptions.functionalOwners.forEach(owner => {
+          ownerSelect.innerHTML += `<option value="${owner}">${owner}</option>`;
+        });
+      }
+    }
+
+    function applyFilters() {
+      const search = document.getElementById('filterSearch').value.toLowerCase();
+      const category = document.getElementById('filterCategory').value;
+      const status = document.getElementById('filterStatus').value;
+      const owner = document.getElementById('filterOwner').value;
+      const pltHelp = document.getElementById('filterPltHelp').value;
+      const effort = document.getElementById('filterEffort').value;
+
+      filteredProjects = allProjects.filter(project => {
+        // Search filter
+        if (search) {
+          const searchFields = [
+            project.projectActivityName,
+            project.deliverable,
+            project.functionalOwnerOfDeliverable,
+            project.programOwnerLeadContact
+          ].filter(Boolean).join(' ').toLowerCase();
+
+          if (!searchFields.includes(search)) return false;
+        }
+
+        // Category filter
+        if (category && project.category !== category) return false;
+
+        // Status filter
+        if (status && project.status !== status) return false;
+
+        // Owner filter
+        if (owner && project.functionalOwnerOfDeliverable !== owner) return false;
+
+        // PLT Help filter
+        if (pltHelp && project.pltHelpNeeded !== pltHelp) return false;
+
+        // Effort filter
+        if (effort && project.effort !== effort) return false;
+
+        return true;
+      });
+
+      // Apply month view filter
+      if (currentView !== 'all') {
+        const monthMap = { jan: 1, feb: 2, mar: 3 };
+        const month = monthMap[currentView];
+        const year = 2026;
+
+        filteredProjects = filteredProjects.filter(project => {
+          if (!project.startDate && !project.endDate) return false;
+
+          const startDate = parseDate(project.startDate);
+          const endDate = parseDate(project.endDate);
+          const monthStart = new Date(year, month - 1, 1);
+          const monthEnd = new Date(year, month, 0);
+
+          if (startDate && endDate) {
+            return startDate <= monthEnd && endDate >= monthStart;
+          } else if (startDate) {
+            return startDate.getMonth() + 1 === month && startDate.getFullYear() === year;
+          } else if (endDate) {
+            return endDate.getMonth() + 1 === month && endDate.getFullYear() === year;
+          }
+
+          return false;
+        });
+      }
+
+      renderTable();
+      updateTableInfo();
+    }
+
+    function parseDate(dateStr) {
+      if (!dateStr) return null;
+      if (dateStr instanceof Date) return dateStr;
+
+      const parts = dateStr.split('/');
+      if (parts.length === 3) {
+        return new Date(parts[2], parts[0] - 1, parts[1]);
+      }
+      return new Date(dateStr);
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('projectsBody');
+
+      if (filteredProjects.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="10">
+              <div class="empty-state">
+                <span class="material-icons">folder_open</span>
+                <p>No projects found matching your filters.</p>
+              </div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filteredProjects.map((project, index) => `
+        <tr>
+          <td>${index + 1}</td>
+          <td><strong>${escapeHtml(project.projectActivityName || '-')}</strong></td>
+          <td>${getCategoryBadge(project.category)}</td>
+          <td class="deliverable-cell" title="${escapeHtml(project.deliverable || '')}">${escapeHtml(project.deliverable || '-')}</td>
+          <td>${getStatusBadge(project.status)}</td>
+          <td>${getPltHelpBadge(project.pltHelpNeeded)}</td>
+          <td class="date-cell">${formatDateRange(project.startDate, project.endDate)}</td>
+          <td>${getOwnerCell(project.functionalOwnerOfDeliverable)}</td>
+          <td>${escapeHtml(project.programOwnerLeadContact || '-')}</td>
+          <td>${getEffortBadge(project.effort)}</td>
+        </tr>
+      `).join('');
+    }
+
+    function getStatusBadge(status) {
+      if (!status) return '<span class="status-badge status-default">Unknown</span>';
+
+      const statusLower = status.toLowerCase().replace(/\s+/g, '-');
+      let className = 'status-default';
+
+      if (status === 'Completed') className = 'status-completed';
+      else if (status === 'On Track') className = 'status-on-track';
+      else if (status === 'At Risk') className = 'status-at-risk';
+
+      return `<span class="status-badge ${className}">${escapeHtml(status)}</span>`;
+    }
+
+    function getCategoryBadge(category) {
+      if (!category) return '-';
+
+      const categoryLower = category.toLowerCase().replace(/\s+/g, '-');
+      return `<span class="category-badge category-${categoryLower}">${escapeHtml(category)}</span>`;
+    }
+
+    function getEffortBadge(effort) {
+      if (!effort) return '-';
+      const effortLower = effort.toLowerCase();
+      return `<span class="effort-badge effort-${effortLower}">${escapeHtml(effort)}</span>`;
+    }
+
+    function getPltHelpBadge(value) {
+      if (value === 'Yes') {
+        return '<span class="plt-help-yes"><span class="material-icons" style="font-size: 16px; vertical-align: middle;">warning</span> Yes</span>';
+      }
+      return '<span class="plt-help-no">No</span>';
+    }
+
+    function getOwnerCell(owner) {
+      if (!owner) return '-';
+      const initials = owner.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+      return `
+        <div class="owner-cell">
+          <div class="avatar">${initials}</div>
+          <span>${escapeHtml(owner)}</span>
+        </div>
+      `;
+    }
+
+    function formatDateRange(start, end) {
+      if (!start && !end) return '-';
+
+      const formatDate = (d) => {
+        if (!d) return '';
+        return d;
+      };
+
+      if (start && end) {
+        return `<div class="date-range">${formatDate(start)} <span class="material-icons" style="font-size: 14px;">arrow_forward</span> ${formatDate(end)}</div>`;
+      }
+
+      return formatDate(start || end);
+    }
+
+    function updateStats() {
+      const stats = {
+        total: allProjects.length,
+        completed: allProjects.filter(p => p.status === 'Completed').length,
+        onTrack: allProjects.filter(p => p.status === 'On Track').length,
+        atRisk: allProjects.filter(p => p.status === 'At Risk').length,
+        pltHelp: allProjects.filter(p => p.pltHelpNeeded === 'Yes').length
+      };
+
+      document.getElementById('statTotal').textContent = stats.total;
+      document.getElementById('statCompleted').textContent = stats.completed;
+      document.getElementById('statOnTrack').textContent = stats.onTrack;
+      document.getElementById('statAtRisk').textContent = stats.atRisk;
+      document.getElementById('statPltHelp').textContent = stats.pltHelp;
+    }
+
+    function updateTableInfo() {
+      const info = document.getElementById('tableInfo');
+      info.textContent = `Showing ${filteredProjects.length} of ${allProjects.length} projects`;
+    }
+
+    function clearFilters() {
+      document.getElementById('filterSearch').value = '';
+      document.getElementById('filterCategory').value = '';
+      document.getElementById('filterStatus').value = '';
+      document.getElementById('filterOwner').value = '';
+      document.getElementById('filterPltHelp').value = '';
+      document.getElementById('filterEffort').value = '';
+      applyFilters();
+    }
+
+    function switchView(view) {
+      currentView = view;
+
+      // Update tab styles
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.view === view);
+      });
+
+      applyFilters();
+    }
+
+    function refreshData() {
+      showToast('Refreshing data...', 'info');
+      loadProjects().then(() => {
+        showToast('Data refreshed successfully', 'success');
+      });
+    }
+
+    function openSpreadsheet() {
+      const ss = google.script.run.withSuccessHandler(url => {
+        if (url) window.open(url, '_blank');
+      }).getSpreadsheetUrl ? google.script.run.getSpreadsheetUrl() : null;
+
+      // Fallback - this won't work but shows intent
+      showToast('Opening spreadsheet...', 'info');
+    }
+
+    function showToast(message, type = 'info') {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = `toast ${type} show`;
+
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+  </script>
+</body>
+</html>
