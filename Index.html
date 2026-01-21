@@ -571,6 +571,159 @@
       gap: 6px;
       color: var(--gray-600);
     }
+
+    /* Sortable Headers */
+    th.sortable {
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+    }
+
+    th.sortable:hover {
+      background: var(--gray-100);
+    }
+
+    .th-content {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sort-icon {
+      font-size: 16px !important;
+      color: var(--gray-400);
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    th.sortable:hover .sort-icon {
+      color: var(--gray-600);
+    }
+
+    th.sort-asc .sort-icon,
+    th.sort-desc .sort-icon {
+      color: var(--primary);
+    }
+
+    th.sort-desc .sort-icon {
+      transform: rotate(180deg);
+    }
+
+    /* Column Filter Dropdown */
+    .column-filter {
+      position: relative;
+      display: inline-block;
+    }
+
+    .filter-icon {
+      font-size: 16px !important;
+      color: var(--gray-400);
+      cursor: pointer;
+      padding: 2px;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+
+    .filter-icon:hover {
+      color: var(--gray-600);
+      background: var(--gray-200);
+    }
+
+    .filter-icon.active {
+      color: var(--primary);
+      background: rgba(26, 115, 232, 0.1);
+    }
+
+    .column-filter-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 180px;
+      max-height: 250px;
+      overflow-y: auto;
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      z-index: 200;
+      display: none;
+      margin-top: 4px;
+    }
+
+    .column-filter-dropdown.show {
+      display: block;
+    }
+
+    .column-filter-dropdown .filter-search {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .column-filter-dropdown .filter-search input {
+      width: 100%;
+      padding: 6px 10px;
+      border: 1px solid var(--gray-300);
+      border-radius: 4px;
+      font-size: 13px;
+    }
+
+    .column-filter-dropdown .filter-options {
+      padding: 8px 0;
+    }
+
+    .column-filter-dropdown .filter-option {
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--gray-700);
+      transition: background 0.15s;
+    }
+
+    .column-filter-dropdown .filter-option:hover {
+      background: var(--gray-50);
+    }
+
+    .column-filter-dropdown .filter-option input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    .column-filter-dropdown .filter-actions {
+      padding: 8px 12px;
+      border-top: 1px solid var(--gray-200);
+      display: flex;
+      gap: 8px;
+    }
+
+    .column-filter-dropdown .filter-actions button {
+      flex: 1;
+      padding: 6px 12px;
+      font-size: 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      border: none;
+    }
+
+    .column-filter-dropdown .btn-apply {
+      background: var(--primary);
+      color: white;
+    }
+
+    .column-filter-dropdown .btn-clear {
+      background: var(--gray-100);
+      color: var(--gray-700);
+    }
+
+    /* Header cell layout */
+    th .header-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
   </style>
 </head>
 <body>
@@ -691,15 +844,106 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Project / Activity</th>
-              <th>Category</th>
-              <th>Deliverable</th>
-              <th>Status</th>
-              <th>PLT Help</th>
-              <th>Dates</th>
-              <th>Functional Owner</th>
-              <th>Program Owner</th>
-              <th>Effort</th>
+              <th class="sortable" data-sort="projectActivityName" onclick="sortByColumn('projectActivityName')">
+                <div class="header-controls">
+                  <div class="th-content">
+                    <span>Project / Activity</span>
+                    <span class="material-icons sort-icon">arrow_upward</span>
+                  </div>
+                  <div class="column-filter" onclick="event.stopPropagation()">
+                    <span class="material-icons filter-icon" onclick="toggleColumnFilter(event, 'projectActivityName')">filter_list</span>
+                    <div class="column-filter-dropdown" id="filter-projectActivityName"></div>
+                  </div>
+                </div>
+              </th>
+              <th class="sortable" data-sort="category" onclick="sortByColumn('category')">
+                <div class="header-controls">
+                  <div class="th-content">
+                    <span>Category</span>
+                    <span class="material-icons sort-icon">arrow_upward</span>
+                  </div>
+                  <div class="column-filter" onclick="event.stopPropagation()">
+                    <span class="material-icons filter-icon" onclick="toggleColumnFilter(event, 'category')">filter_list</span>
+                    <div class="column-filter-dropdown" id="filter-category"></div>
+                  </div>
+                </div>
+              </th>
+              <th class="sortable" data-sort="deliverable" onclick="sortByColumn('deliverable')">
+                <div class="header-controls">
+                  <div class="th-content">
+                    <span>Deliverable</span>
+                    <span class="material-icons sort-icon">arrow_upward</span>
+                  </div>
+                </div>
+              </th>
+              <th class="sortable" data-sort="status" onclick="sortByColumn('status')">
+                <div class="header-controls">
+                  <div class="th-content">
+                    <span>Status</span>
+                    <span class="material-icons sort-icon">arrow_upward</span>
+                  </div>
+                  <div class="column-filter" onclick="event.stopPropagation()">
+                    <span class="material-icons filter-icon" onclick="toggleColumnFilter(event, 'status')">filter_list</span>
+                    <div class="column-filter-dropdown" id="filter-status"></div>
+                  </div>
+                </div>
+              </th>
+              <th class="sortable" data-sort="pltHelpNeeded" onclick="sortByColumn('pltHelpNeeded')">
+                <div class="header-controls">
+                  <div class="th-content">
+                    <span>PLT Help</span>
+                    <span class="material-icons sort-icon">arrow_upward</span>
+                  </div>
+                  <div class="column-filter" onclick="event.stopPropagation()">
+                    <span class="material-icons filter-icon" onclick="toggleColumnFilter(event, 'pltHelpNeeded')">filter_list</span>
+                    <div class="column-filter-dropdown" id="filter-pltHelpNeeded"></div>
+                  </div>
+                </div>
+              </th>
+              <th class="sortable" data-sort="startDate" onclick="sortByColumn('startDate')">
+                <div class="header-controls">
+                  <div class="th-content">
+                    <span>Dates</span>
+                    <span class="material-icons sort-icon">arrow_upward</span>
+                  </div>
+                </div>
+              </th>
+              <th class="sortable" data-sort="functionalOwnerOfDeliverable" onclick="sortByColumn('functionalOwnerOfDeliverable')">
+                <div class="header-controls">
+                  <div class="th-content">
+                    <span>Functional Owner</span>
+                    <span class="material-icons sort-icon">arrow_upward</span>
+                  </div>
+                  <div class="column-filter" onclick="event.stopPropagation()">
+                    <span class="material-icons filter-icon" onclick="toggleColumnFilter(event, 'functionalOwnerOfDeliverable')">filter_list</span>
+                    <div class="column-filter-dropdown" id="filter-functionalOwnerOfDeliverable"></div>
+                  </div>
+                </div>
+              </th>
+              <th class="sortable" data-sort="programOwnerLeadContact" onclick="sortByColumn('programOwnerLeadContact')">
+                <div class="header-controls">
+                  <div class="th-content">
+                    <span>Program Owner</span>
+                    <span class="material-icons sort-icon">arrow_upward</span>
+                  </div>
+                  <div class="column-filter" onclick="event.stopPropagation()">
+                    <span class="material-icons filter-icon" onclick="toggleColumnFilter(event, 'programOwnerLeadContact')">filter_list</span>
+                    <div class="column-filter-dropdown" id="filter-programOwnerLeadContact"></div>
+                  </div>
+                </div>
+              </th>
+              <th class="sortable" data-sort="effort" onclick="sortByColumn('effort')">
+                <div class="header-controls">
+                  <div class="th-content">
+                    <span>Effort</span>
+                    <span class="material-icons sort-icon">arrow_upward</span>
+                  </div>
+                  <div class="column-filter" onclick="event.stopPropagation()">
+                    <span class="material-icons filter-icon" onclick="toggleColumnFilter(event, 'effort')">filter_list</span>
+                    <div class="column-filter-dropdown" id="filter-effort"></div>
+                  </div>
+                </div>
+              </th>
             </tr>
           </thead>
           <tbody id="projectsBody">
@@ -726,9 +970,19 @@
     let filteredProjects = [];
     let filterOptions = {};
     let currentView = 'all';
+    let currentSort = { column: null, direction: 'asc' };
+    let columnFilters = {};
 
     // Initialize on load
     document.addEventListener('DOMContentLoaded', init);
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.column-filter')) {
+        document.querySelectorAll('.column-filter-dropdown').forEach(d => d.classList.remove('show'));
+        document.querySelectorAll('.filter-icon').forEach(i => i.classList.remove('active'));
+      }
+    });
 
     async function init() {
       await Promise.all([
@@ -847,6 +1101,13 @@
         // Effort filter
         if (effort && project.effort !== effort) return false;
 
+        // Column filters (from header dropdowns)
+        for (const [column, values] of Object.entries(columnFilters)) {
+          if (values.length > 0 && !values.includes(project[column])) {
+            return false;
+          }
+        }
+
         return true;
       });
 
@@ -873,6 +1134,27 @@
           }
 
           return false;
+        });
+      }
+
+      // Re-apply current sort if active
+      if (currentSort.column) {
+        filteredProjects.sort((a, b) => {
+          let valA = a[currentSort.column] || '';
+          let valB = b[currentSort.column] || '';
+
+          if (currentSort.column === 'startDate' || currentSort.column === 'endDate') {
+            valA = parseDate(valA) || new Date(0);
+            valB = parseDate(valB) || new Date(0);
+            return currentSort.direction === 'asc' ? valA - valB : valB - valA;
+          }
+
+          if (typeof valA === 'string') valA = valA.toLowerCase();
+          if (typeof valB === 'string') valB = valB.toLowerCase();
+
+          if (valA < valB) return currentSort.direction === 'asc' ? -1 : 1;
+          if (valA > valB) return currentSort.direction === 'asc' ? 1 : -1;
+          return 0;
         });
       }
 
@@ -1011,6 +1293,17 @@
       document.getElementById('filterOwner').value = '';
       document.getElementById('filterPltHelp').value = '';
       document.getElementById('filterEffort').value = '';
+
+      // Clear column filters
+      columnFilters = {};
+      updateFilterIcons();
+
+      // Reset sort
+      currentSort = { column: null, direction: 'asc' };
+      document.querySelectorAll('th.sortable').forEach(th => {
+        th.classList.remove('sort-asc', 'sort-desc');
+      });
+
       applyFilters();
     }
 
@@ -1063,6 +1356,150 @@
       const div = document.createElement('div');
       div.textContent = text;
       return div.innerHTML;
+    }
+
+    // Sorting functionality
+    function sortByColumn(column) {
+      // Determine sort direction
+      if (currentSort.column === column) {
+        currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+      } else {
+        currentSort.column = column;
+        currentSort.direction = 'asc';
+      }
+
+      // Update header classes
+      document.querySelectorAll('th.sortable').forEach(th => {
+        th.classList.remove('sort-asc', 'sort-desc');
+        if (th.dataset.sort === column) {
+          th.classList.add(currentSort.direction === 'asc' ? 'sort-asc' : 'sort-desc');
+        }
+      });
+
+      // Sort the data
+      filteredProjects.sort((a, b) => {
+        let valA = a[column] || '';
+        let valB = b[column] || '';
+
+        // Handle dates
+        if (column === 'startDate' || column === 'endDate') {
+          valA = parseDate(valA) || new Date(0);
+          valB = parseDate(valB) || new Date(0);
+          return currentSort.direction === 'asc' ? valA - valB : valB - valA;
+        }
+
+        // Handle strings
+        if (typeof valA === 'string') valA = valA.toLowerCase();
+        if (typeof valB === 'string') valB = valB.toLowerCase();
+
+        if (valA < valB) return currentSort.direction === 'asc' ? -1 : 1;
+        if (valA > valB) return currentSort.direction === 'asc' ? 1 : -1;
+        return 0;
+      });
+
+      renderTable();
+    }
+
+    // Column filter functionality
+    function toggleColumnFilter(event, column) {
+      event.stopPropagation();
+
+      const dropdown = document.getElementById('filter-' + column);
+      const icon = event.target;
+      const isOpen = dropdown.classList.contains('show');
+
+      // Close all other dropdowns
+      document.querySelectorAll('.column-filter-dropdown').forEach(d => d.classList.remove('show'));
+      document.querySelectorAll('.filter-icon').forEach(i => i.classList.remove('active'));
+
+      if (!isOpen) {
+        populateColumnFilter(column);
+        dropdown.classList.add('show');
+        icon.classList.add('active');
+      }
+    }
+
+    function populateColumnFilter(column) {
+      const dropdown = document.getElementById('filter-' + column);
+
+      // Get unique values for this column
+      const values = [...new Set(allProjects.map(p => p[column]).filter(Boolean))].sort();
+      const selectedValues = columnFilters[column] || [];
+
+      dropdown.innerHTML = `
+        <div class="filter-search">
+          <input type="text" placeholder="Search..." oninput="filterColumnOptions(event, '${column}')">
+        </div>
+        <div class="filter-options">
+          ${values.map(val => `
+            <label class="filter-option" data-value="${escapeHtml(val)}">
+              <input type="checkbox" value="${escapeHtml(val)}" ${selectedValues.includes(val) ? 'checked' : ''}>
+              <span>${escapeHtml(val)}</span>
+            </label>
+          `).join('')}
+        </div>
+        <div class="filter-actions">
+          <button class="btn-clear" onclick="clearColumnFilter('${column}')">Clear</button>
+          <button class="btn-apply" onclick="applyColumnFilter('${column}')">Apply</button>
+        </div>
+      `;
+    }
+
+    function filterColumnOptions(event, column) {
+      const searchValue = event.target.value.toLowerCase();
+      const dropdown = document.getElementById('filter-' + column);
+      const options = dropdown.querySelectorAll('.filter-option');
+
+      options.forEach(option => {
+        const value = option.dataset.value.toLowerCase();
+        option.style.display = value.includes(searchValue) ? 'flex' : 'none';
+      });
+    }
+
+    function applyColumnFilter(column) {
+      const dropdown = document.getElementById('filter-' + column);
+      const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]:checked');
+      const selectedValues = Array.from(checkboxes).map(cb => cb.value);
+
+      if (selectedValues.length > 0) {
+        columnFilters[column] = selectedValues;
+      } else {
+        delete columnFilters[column];
+      }
+
+      // Update filter icon to show active state
+      updateFilterIcons();
+
+      // Close dropdown
+      dropdown.classList.remove('show');
+
+      // Reapply all filters
+      applyFilters();
+    }
+
+    function clearColumnFilter(column) {
+      delete columnFilters[column];
+      updateFilterIcons();
+
+      const dropdown = document.getElementById('filter-' + column);
+      dropdown.classList.remove('show');
+
+      applyFilters();
+    }
+
+    function updateFilterIcons() {
+      document.querySelectorAll('.column-filter').forEach(cf => {
+        const dropdown = cf.querySelector('.column-filter-dropdown');
+        const icon = cf.querySelector('.filter-icon');
+        if (dropdown && icon) {
+          const column = dropdown.id.replace('filter-', '');
+          if (columnFilters[column] && columnFilters[column].length > 0) {
+            icon.classList.add('active');
+          } else {
+            icon.classList.remove('active');
+          }
+        }
+      });
     }
   </script>
 </body>
