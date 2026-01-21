@@ -5,11 +5,20 @@
 
 // Configuration
 const CONFIG = {
+  // IMPORTANT: Set your Google Sheet ID here
+  SPREADSHEET_ID: '1VSDqgK1ubsEVPyw011oQpC6d4BNFeXCYMw6h7TdDYQo',
   SHEET_NAME: 'Sample Template - Source Data',
   SETTINGS_SHEET: 'Settings',
   HEADER_ROW: 1,
   DATA_START_ROW: 2
 };
+
+/**
+ * Get the spreadsheet by ID (for standalone scripts)
+ */
+function getSpreadsheet() {
+  return SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
+}
 
 /**
  * Serves the main HTML page
@@ -34,7 +43,7 @@ function include(filename) {
  */
 function getProjects() {
   try {
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const ss = getSpreadsheet();
     const sheet = ss.getSheetByName(CONFIG.SHEET_NAME);
 
     if (!sheet) {
@@ -108,7 +117,7 @@ function getFilterOptions() {
  */
 function updateProjectStatus(rowIndex, newStatus) {
   try {
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const ss = getSpreadsheet();
     const sheet = ss.getSheetByName(CONFIG.SHEET_NAME);
 
     // Find the Status column (column E = 5)
@@ -126,7 +135,7 @@ function updateProjectStatus(rowIndex, newStatus) {
  */
 function updateCell(rowIndex, columnName, value) {
   try {
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const ss = getSpreadsheet();
     const sheet = ss.getSheetByName(CONFIG.SHEET_NAME);
 
     // Get headers to find column index
@@ -149,7 +158,7 @@ function updateCell(rowIndex, columnName, value) {
  */
 function addProject(projectData) {
   try {
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const ss = getSpreadsheet();
     const sheet = ss.getSheetByName(CONFIG.SHEET_NAME);
 
     // Get headers
@@ -312,7 +321,7 @@ function parseDate(dateStr) {
  */
 function getSpreadsheetUrl() {
   try {
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const ss = getSpreadsheet();
     return ss.getUrl();
   } catch (error) {
     return null;
@@ -324,7 +333,7 @@ function getSpreadsheetUrl() {
  */
 function getSettings() {
   try {
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const ss = getSpreadsheet();
     const sheet = ss.getSheetByName(CONFIG.SETTINGS_SHEET);
 
     if (!sheet) {
@@ -351,7 +360,7 @@ function getSettings() {
  */
 function deleteProject(rowIndex) {
   try {
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const ss = getSpreadsheet();
     const sheet = ss.getSheetByName(CONFIG.SHEET_NAME);
 
     if (rowIndex < CONFIG.DATA_START_ROW) {
