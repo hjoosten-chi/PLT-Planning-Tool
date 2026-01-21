@@ -306,3 +306,61 @@ function parseDate(dateStr) {
   }
   return new Date(dateStr);
 }
+
+/**
+ * Get the URL of the active spreadsheet
+ */
+function getSpreadsheetUrl() {
+  try {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    return ss.getUrl();
+  } catch (error) {
+    return null;
+  }
+}
+
+/**
+ * Get settings from the Settings sheet
+ */
+function getSettings() {
+  try {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet = ss.getSheetByName(CONFIG.SETTINGS_SHEET);
+
+    if (!sheet) {
+      return { error: 'Settings sheet not found' };
+    }
+
+    const data = sheet.getDataRange().getValues();
+    const settings = {};
+
+    data.forEach(row => {
+      if (row[0] && row[1]) {
+        settings[row[0]] = row[1];
+      }
+    });
+
+    return settings;
+  } catch (error) {
+    return { error: error.toString() };
+  }
+}
+
+/**
+ * Delete a project by row index
+ */
+function deleteProject(rowIndex) {
+  try {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet = ss.getSheetByName(CONFIG.SHEET_NAME);
+
+    if (rowIndex < CONFIG.DATA_START_ROW) {
+      return { error: 'Cannot delete header row' };
+    }
+
+    sheet.deleteRow(rowIndex);
+    return { success: true };
+  } catch (error) {
+    return { error: error.toString() };
+  }
+}
