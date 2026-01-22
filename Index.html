@@ -1584,6 +1584,302 @@
         width: 100%;
       }
     }
+
+    /* Priority Toggle */
+    .priority-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 2px solid var(--gray-300);
+      background: white;
+      color: var(--gray-600);
+    }
+
+    .priority-toggle:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .priority-toggle.prioritized {
+      background: linear-gradient(135deg, #4285f4 0%, #1a73e8 100%);
+      border-color: transparent;
+      color: white;
+    }
+
+    .priority-toggle .material-icons {
+      font-size: 18px;
+    }
+
+    /* Team Tags */
+    .team-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .team-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      background: var(--gray-100);
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--gray-700);
+      transition: all 0.2s;
+    }
+
+    .team-tag.clickable {
+      cursor: pointer;
+    }
+
+    .team-tag.clickable:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .team-tag .remove-tag {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin-left: 2px;
+    }
+
+    .team-tag .remove-tag:hover {
+      background: rgba(0,0,0,0.1);
+    }
+
+    /* Team selector dropdown */
+    .team-selector {
+      position: relative;
+    }
+
+    .team-selector-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      background: white;
+      border: 1px dashed var(--gray-300);
+      border-radius: 16px;
+      font-size: 12px;
+      color: var(--gray-500);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .team-selector-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .team-selector-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 200px;
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      z-index: 300;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .team-selector-dropdown.show {
+      display: block;
+    }
+
+    .team-selector-dropdown .team-option {
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--gray-700);
+      transition: background 0.15s;
+    }
+
+    .team-selector-dropdown .team-option:hover {
+      background: var(--gray-50);
+    }
+
+    .team-selector-dropdown .team-option.selected {
+      background: rgba(26, 115, 232, 0.1);
+      color: var(--primary);
+    }
+
+    /* Team Workload View */
+    .workload-section {
+      background: white;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: none;
+    }
+
+    .workload-section.active {
+      display: block;
+    }
+
+    .workload-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .workload-header h2 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .workload-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .workload-card {
+      background: var(--gray-50);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .workload-card-header {
+      padding: 16px;
+      background: white;
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .workload-card-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .workload-card-info {
+      flex: 1;
+    }
+
+    .workload-card-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gray-800);
+    }
+
+    .workload-card-count {
+      font-size: 12px;
+      color: var(--gray-500);
+    }
+
+    .workload-card-stats {
+      display: flex;
+      gap: 8px;
+    }
+
+    .workload-mini-stat {
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .workload-mini-stat.prioritized {
+      background: rgba(26, 115, 232, 0.1);
+      color: var(--primary);
+    }
+
+    .workload-mini-stat.at-risk {
+      background: #fce8e6;
+      color: #c5221f;
+    }
+
+    .workload-card-projects {
+      padding: 12px 16px;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+
+    .workload-project-item {
+      padding: 10px 12px;
+      background: white;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .workload-project-item:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-1px);
+    }
+
+    .workload-project-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .workload-project-priority {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gray-300);
+      flex-shrink: 0;
+    }
+
+    .workload-project-priority.prioritized {
+      background: var(--primary);
+    }
+
+    .workload-project-name {
+      flex: 1;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-800);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .workload-project-status {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-weight: 500;
+    }
+
+    .workload-project-status.completed { background: #e6f4ea; color: #137333; }
+    .workload-project-status.on-track { background: #e8f0fe; color: #1967d2; }
+    .workload-project-status.at-risk { background: #fce8e6; color: #c5221f; }
+
+    /* Stat card for prioritized - purple theme */
+    .stat-card.purple .value { color: #7c3aed; }
+    .stat-card.purple .stat-progress-bar { background: #7c3aed; }
   </style>
 </head>
 <body>
@@ -1658,6 +1954,14 @@
           <div class="stat-progress-bar" id="progressPltHelp" style="width: 0%;"></div>
         </div>
       </div>
+      <div class="stat-card purple" data-filter="prioritized" onclick="filterByStatCard('prioritized')">
+        <div class="label">Prioritized</div>
+        <div class="value" id="statPrioritized">-</div>
+        <div class="subtext" id="statPrioritizedPercent">-</div>
+        <div class="stat-progress">
+          <div class="stat-progress-bar" id="progressPrioritized" style="width: 0%;"></div>
+        </div>
+      </div>
     </div>
 
     <!-- Active Filter Banner -->
@@ -1719,6 +2023,20 @@
             <option value="L">Large (L)</option>
           </select>
         </div>
+        <div class="filter-group">
+          <label>Prioritized</label>
+          <select id="filterPrioritized" onchange="applyFilters()">
+            <option value="">All</option>
+            <option value="Yes">Prioritized</option>
+            <option value="No">Not Prioritized</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Involved Team</label>
+          <select id="filterInvolvedTeam" onchange="applyFilters()">
+            <option value="">All Teams</option>
+          </select>
+        </div>
       </div>
     </div>
 
@@ -1733,6 +2051,10 @@
           <button class="view-toggle-btn" id="timelineViewBtn" onclick="switchDisplayView('timeline')">
             <span class="material-icons">view_timeline</span>
             Timeline
+          </button>
+          <button class="view-toggle-btn" id="workloadViewBtn" onclick="switchDisplayView('workload')">
+            <span class="material-icons">groups</span>
+            Team Workload
           </button>
         </div>
         <div class="group-by-container">
@@ -1927,6 +2249,17 @@
         </div>
       </div>
     </div>
+
+    <!-- Team Workload View -->
+    <div class="workload-section" id="workloadSection">
+      <div class="workload-header">
+        <h2>Team Workload</h2>
+        <p style="font-size: 13px; color: var(--gray-500); margin-top: 4px;">View projects by involved functional teams</p>
+      </div>
+      <div class="workload-grid" id="workloadGrid">
+        <!-- Workload cards rendered by JavaScript -->
+      </div>
+    </div>
   </main>
 
   <!-- Project Tooltip -->
@@ -1950,6 +2283,15 @@
       </button>
     </div>
     <div class="detail-panel-body">
+      <!-- Priority Toggle -->
+      <div class="detail-section">
+        <div class="detail-section-title">Priority</div>
+        <button class="priority-toggle" id="priorityToggle" onclick="togglePriority()">
+          <span class="material-icons">star</span>
+          <span id="priorityToggleText">Not Prioritized</span>
+        </button>
+      </div>
+
       <!-- Quick Status Update -->
       <div class="detail-section">
         <div class="detail-section-title">Quick Status Update</div>
@@ -1966,6 +2308,23 @@
             <span class="material-icons" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">warning</span>
             At Risk
           </button>
+        </div>
+      </div>
+
+      <!-- Involved Teams (Dependencies) -->
+      <div class="detail-section">
+        <div class="detail-section-title">Involved Teams</div>
+        <div class="team-tags" id="involvedTeamsTags">
+          <!-- Tags rendered by JavaScript -->
+        </div>
+        <div class="team-selector" style="margin-top: 8px;">
+          <button class="team-selector-btn" onclick="toggleTeamSelector()">
+            <span class="material-icons" style="font-size: 14px;">add</span>
+            Add Team
+          </button>
+          <div class="team-selector-dropdown" id="teamSelectorDropdown">
+            <!-- Options rendered by JavaScript -->
+          </div>
         </div>
       </div>
 
@@ -2068,6 +2427,22 @@
     let activeStatFilter = null; // Track active stat card filter
     let currentDetailProject = null; // Track currently viewed project in detail panel
 
+    // Predefined functional teams (can be expanded based on your organization)
+    const FUNCTIONAL_TEAMS = [
+      'Total Rewards',
+      'Talent Development',
+      'People Operations',
+      'HRBP',
+      'Engagement',
+      'Recruiting',
+      'DEI',
+      'HR Technology',
+      'Compensation',
+      'Benefits',
+      'Learning & Development',
+      'Employee Relations'
+    ];
+
     // Initialize on load
     document.addEventListener('DOMContentLoaded', init);
 
@@ -2140,6 +2515,7 @@
       const categorySelect = document.getElementById('filterCategory');
       const statusSelect = document.getElementById('filterStatus');
       const ownerSelect = document.getElementById('filterOwner');
+      const involvedTeamSelect = document.getElementById('filterInvolvedTeam');
 
       if (filterOptions.categories) {
         filterOptions.categories.forEach(cat => {
@@ -2158,6 +2534,11 @@
           ownerSelect.innerHTML += `<option value="${owner}">${owner}</option>`;
         });
       }
+
+      // Populate involved teams dropdown with predefined teams
+      FUNCTIONAL_TEAMS.forEach(team => {
+        involvedTeamSelect.innerHTML += `<option value="${team}">${team}</option>`;
+      });
     }
 
     function applyFilters() {
@@ -2167,6 +2548,8 @@
       const owner = document.getElementById('filterOwner').value;
       const pltHelp = document.getElementById('filterPltHelp').value;
       const effort = document.getElementById('filterEffort').value;
+      const prioritizedFilter = document.getElementById('filterPrioritized').value;
+      const involvedTeam = document.getElementById('filterInvolvedTeam').value;
 
       filteredProjects = allProjects.filter(project => {
         // Stat card filter (takes precedence)
@@ -2175,6 +2558,7 @@
           if (activeStatFilter === 'onTrack' && project.status !== 'On Track') return false;
           if (activeStatFilter === 'atRisk' && project.status !== 'At Risk') return false;
           if (activeStatFilter === 'pltHelp' && project.pltHelpNeeded !== 'Yes') return false;
+          if (activeStatFilter === 'prioritized' && project.prioritized !== 'Yes') return false;
           // 'total' shows all, so no filter needed
         }
 
@@ -2204,6 +2588,15 @@
 
         // Effort filter
         if (effort && project.effort !== effort) return false;
+
+        // Prioritized filter
+        if (prioritizedFilter && project.prioritized !== prioritizedFilter) return false;
+
+        // Involved Team filter
+        if (involvedTeam) {
+          const teams = parseInvolvedTeams(project.involvedTeams);
+          if (!teams.includes(involvedTeam)) return false;
+        }
 
         // Column filters (from header dropdowns)
         for (const [column, values] of Object.entries(columnFilters)) {
@@ -2478,7 +2871,8 @@
         completed: allProjects.filter(p => p.status === 'Completed').length,
         onTrack: allProjects.filter(p => p.status === 'On Track').length,
         atRisk: allProjects.filter(p => p.status === 'At Risk').length,
-        pltHelp: allProjects.filter(p => p.pltHelpNeeded === 'Yes').length
+        pltHelp: allProjects.filter(p => p.pltHelpNeeded === 'Yes').length,
+        prioritized: allProjects.filter(p => p.prioritized === 'Yes').length
       };
 
       const total = stats.total || 1; // Avoid division by zero
@@ -2489,12 +2883,14 @@
       document.getElementById('statOnTrack').textContent = stats.onTrack;
       document.getElementById('statAtRisk').textContent = stats.atRisk;
       document.getElementById('statPltHelp').textContent = stats.pltHelp;
+      document.getElementById('statPrioritized').textContent = stats.prioritized;
 
       // Update percentages
       document.getElementById('statCompletedPercent').textContent = `${Math.round((stats.completed / total) * 100)}% of total`;
       document.getElementById('statOnTrackPercent').textContent = `${Math.round((stats.onTrack / total) * 100)}% of total`;
       document.getElementById('statAtRiskPercent').textContent = `${Math.round((stats.atRisk / total) * 100)}% of total`;
       document.getElementById('statPltHelpPercent').textContent = `${Math.round((stats.pltHelp / total) * 100)}% of total`;
+      document.getElementById('statPrioritizedPercent').textContent = `${Math.round((stats.prioritized / total) * 100)}% of total`;
 
       // Update progress bars
       document.getElementById('progressTotal').style.width = '100%';
@@ -2502,6 +2898,7 @@
       document.getElementById('progressOnTrack').style.width = `${(stats.onTrack / total) * 100}%`;
       document.getElementById('progressAtRisk').style.width = `${(stats.atRisk / total) * 100}%`;
       document.getElementById('progressPltHelp').style.width = `${(stats.pltHelp / total) * 100}%`;
+      document.getElementById('progressPrioritized').style.width = `${(stats.prioritized / total) * 100}%`;
     }
 
     // Stat Card Filter Functions
@@ -2531,7 +2928,8 @@
         completed: 'Completed Projects',
         onTrack: 'On Track Projects',
         atRisk: 'At Risk Projects',
-        pltHelp: 'Projects Needing PLT Help'
+        pltHelp: 'Projects Needing PLT Help',
+        prioritized: 'Prioritized Projects'
       };
 
       filterText.textContent = `Filtering by: ${filterLabels[filterType]}`;
@@ -2568,6 +2966,8 @@
       document.getElementById('filterOwner').value = '';
       document.getElementById('filterPltHelp').value = '';
       document.getElementById('filterEffort').value = '';
+      document.getElementById('filterPrioritized').value = '';
+      document.getElementById('filterInvolvedTeam').value = '';
 
       // Clear column filters
       columnFilters = {};
@@ -2788,14 +3188,18 @@
       // Update toggle buttons
       document.getElementById('tableViewBtn').classList.toggle('active', view === 'table');
       document.getElementById('timelineViewBtn').classList.toggle('active', view === 'timeline');
+      document.getElementById('workloadViewBtn').classList.toggle('active', view === 'workload');
 
       // Show/hide sections
       document.getElementById('tableSection').classList.toggle('hidden', view !== 'table');
       document.getElementById('timelineSection').classList.toggle('active', view === 'timeline');
+      document.getElementById('workloadSection').classList.toggle('active', view === 'workload');
 
-      // Render timeline if switching to timeline view
+      // Render view-specific content
       if (view === 'timeline') {
         renderTimeline();
+      } else if (view === 'workload') {
+        renderWorkloadView();
       }
     }
 
@@ -3146,6 +3550,12 @@
       // Update status button active states
       updateStatusButtonStates(project.status);
 
+      // Update priority toggle
+      updatePriorityToggleUI(project.prioritized);
+
+      // Update involved teams
+      renderInvolvedTeamsTags();
+
       // Show panel
       document.getElementById('detailPanelOverlay').classList.add('show');
       document.getElementById('detailPanel').classList.add('show');
@@ -3226,6 +3636,268 @@
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
         closeDetailPanel();
+      }
+    });
+
+    // ==================== Priority & Team Functions ====================
+
+    // Parse comma-separated involved teams string
+    function parseInvolvedTeams(teamsStr) {
+      if (!teamsStr) return [];
+      return teamsStr.split(',').map(t => t.trim()).filter(Boolean);
+    }
+
+    // Format teams array to comma-separated string
+    function formatInvolvedTeams(teamsArray) {
+      return teamsArray.join(', ');
+    }
+
+    // Toggle priority for current project
+    function togglePriority() {
+      if (!currentDetailProject) return;
+
+      const newPriority = currentDetailProject.prioritized === 'Yes' ? 'No' : 'Yes';
+      const rowIndex = currentDetailProject.rowIndex;
+
+      showToast(`${newPriority === 'Yes' ? 'Prioritizing' : 'Deprioritizing'} project...`, 'info');
+
+      google.script.run
+        .withSuccessHandler(function(result) {
+          if (result.error) {
+            showToast('Error: ' + result.error, 'error');
+            return;
+          }
+
+          // Update local data
+          const projectIndex = allProjects.findIndex(p => p.rowIndex === rowIndex);
+          if (projectIndex !== -1) {
+            allProjects[projectIndex].prioritized = newPriority;
+            currentDetailProject = allProjects[projectIndex];
+          }
+
+          // Update UI
+          updatePriorityToggleUI(newPriority);
+          updateStats();
+          applyFilters();
+
+          showToast(`Project ${newPriority === 'Yes' ? 'prioritized' : 'deprioritized'}`, 'success');
+        })
+        .withFailureHandler(function(error) {
+          showToast('Error: ' + error, 'error');
+        })
+        .updateCell(rowIndex, 'prioritized', newPriority);
+    }
+
+    // Update priority toggle button UI
+    function updatePriorityToggleUI(isPrioritized) {
+      const toggle = document.getElementById('priorityToggle');
+      const text = document.getElementById('priorityToggleText');
+
+      if (isPrioritized === 'Yes') {
+        toggle.classList.add('prioritized');
+        text.textContent = 'Prioritized';
+      } else {
+        toggle.classList.remove('prioritized');
+        text.textContent = 'Not Prioritized';
+      }
+    }
+
+    // Toggle team selector dropdown
+    function toggleTeamSelector() {
+      const dropdown = document.getElementById('teamSelectorDropdown');
+      const isOpen = dropdown.classList.contains('show');
+
+      if (!isOpen) {
+        renderTeamSelectorOptions();
+      }
+
+      dropdown.classList.toggle('show');
+    }
+
+    // Render team selector options
+    function renderTeamSelectorOptions() {
+      const dropdown = document.getElementById('teamSelectorDropdown');
+      const currentTeams = currentDetailProject ? parseInvolvedTeams(currentDetailProject.involvedTeams) : [];
+
+      dropdown.innerHTML = FUNCTIONAL_TEAMS.map(team => `
+        <div class="team-option ${currentTeams.includes(team) ? 'selected' : ''}" onclick="toggleTeamForProject('${team}')">
+          <span class="material-icons" style="font-size: 16px;">${currentTeams.includes(team) ? 'check_box' : 'check_box_outline_blank'}</span>
+          ${escapeHtml(team)}
+        </div>
+      `).join('');
+    }
+
+    // Toggle a team for the current project
+    function toggleTeamForProject(team) {
+      if (!currentDetailProject) return;
+
+      const currentTeams = parseInvolvedTeams(currentDetailProject.involvedTeams);
+      const teamIndex = currentTeams.indexOf(team);
+
+      if (teamIndex === -1) {
+        currentTeams.push(team);
+      } else {
+        currentTeams.splice(teamIndex, 1);
+      }
+
+      updateProjectTeams(currentTeams);
+    }
+
+    // Remove a specific team from the project
+    function removeTeamFromProject(team) {
+      if (!currentDetailProject) return;
+
+      const currentTeams = parseInvolvedTeams(currentDetailProject.involvedTeams);
+      const teamIndex = currentTeams.indexOf(team);
+
+      if (teamIndex !== -1) {
+        currentTeams.splice(teamIndex, 1);
+        updateProjectTeams(currentTeams);
+      }
+    }
+
+    // Update project's involved teams
+    function updateProjectTeams(teamsArray) {
+      const rowIndex = currentDetailProject.rowIndex;
+      const teamsStr = formatInvolvedTeams(teamsArray);
+
+      showToast('Updating teams...', 'info');
+
+      google.script.run
+        .withSuccessHandler(function(result) {
+          if (result.error) {
+            showToast('Error: ' + result.error, 'error');
+            return;
+          }
+
+          // Update local data
+          const projectIndex = allProjects.findIndex(p => p.rowIndex === rowIndex);
+          if (projectIndex !== -1) {
+            allProjects[projectIndex].involvedTeams = teamsStr;
+            currentDetailProject = allProjects[projectIndex];
+          }
+
+          // Update UI
+          renderInvolvedTeamsTags();
+          renderTeamSelectorOptions();
+          applyFilters();
+
+          showToast('Teams updated', 'success');
+        })
+        .withFailureHandler(function(error) {
+          showToast('Error: ' + error, 'error');
+        })
+        .updateCell(rowIndex, 'involvedTeams', teamsStr);
+    }
+
+    // Render involved teams tags in detail panel
+    function renderInvolvedTeamsTags() {
+      const container = document.getElementById('involvedTeamsTags');
+      const teams = currentDetailProject ? parseInvolvedTeams(currentDetailProject.involvedTeams) : [];
+
+      if (teams.length === 0) {
+        container.innerHTML = '<span style="font-size: 13px; color: var(--gray-500);">No teams assigned</span>';
+        return;
+      }
+
+      container.innerHTML = teams.map(team => `
+        <span class="team-tag">
+          ${escapeHtml(team)}
+          <span class="remove-tag" onclick="removeTeamFromProject('${escapeHtml(team)}')">
+            <span class="material-icons" style="font-size: 14px;">close</span>
+          </span>
+        </span>
+      `).join('');
+    }
+
+    // ==================== Team Workload View ====================
+
+    function renderWorkloadView() {
+      const container = document.getElementById('workloadGrid');
+
+      // Build a map of teams to their projects
+      const teamProjects = new Map();
+
+      // Initialize with all functional teams
+      FUNCTIONAL_TEAMS.forEach(team => {
+        teamProjects.set(team, []);
+      });
+
+      // Also add the functional owner as an involved team
+      filteredProjects.forEach(project => {
+        // Add from involved teams
+        const teams = parseInvolvedTeams(project.involvedTeams);
+        teams.forEach(team => {
+          if (!teamProjects.has(team)) {
+            teamProjects.set(team, []);
+          }
+          teamProjects.get(team).push(project);
+        });
+
+        // Also include the functional owner
+        if (project.functionalOwnerOfDeliverable) {
+          const owner = project.functionalOwnerOfDeliverable;
+          if (!teamProjects.has(owner)) {
+            teamProjects.set(owner, []);
+          }
+          // Only add if not already in the list
+          if (!teamProjects.get(owner).find(p => p.rowIndex === project.rowIndex)) {
+            teamProjects.get(owner).push(project);
+          }
+        }
+      });
+
+      // Filter out teams with no projects and sort by project count
+      const teamsWithProjects = Array.from(teamProjects.entries())
+        .filter(([team, projects]) => projects.length > 0)
+        .sort((a, b) => b[1].length - a[1].length);
+
+      if (teamsWithProjects.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; color: var(--gray-600);">
+            <span class="material-icons" style="font-size: 48px; color: var(--gray-400); margin-bottom: 16px; display: block;">groups</span>
+            <p>No team workload data available.</p>
+            <p style="font-size: 13px; margin-top: 8px;">Add "Involved Teams" to your projects to see workload distribution.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = teamsWithProjects.map(([team, projects]) => {
+        const prioritizedCount = projects.filter(p => p.prioritized === 'Yes').length;
+        const atRiskCount = projects.filter(p => p.status === 'At Risk').length;
+
+        return `
+          <div class="workload-card">
+            <div class="workload-card-header">
+              <div class="workload-card-avatar">${getInitials(team)}</div>
+              <div class="workload-card-info">
+                <div class="workload-card-title">${escapeHtml(team)}</div>
+                <div class="workload-card-count">${projects.length} project${projects.length !== 1 ? 's' : ''}</div>
+              </div>
+              <div class="workload-card-stats">
+                ${prioritizedCount > 0 ? `<span class="workload-mini-stat prioritized">${prioritizedCount} prioritized</span>` : ''}
+                ${atRiskCount > 0 ? `<span class="workload-mini-stat at-risk">${atRiskCount} at risk</span>` : ''}
+              </div>
+            </div>
+            <div class="workload-card-projects">
+              ${projects.map(project => `
+                <div class="workload-project-item" onclick="openDetailPanel(${project.rowIndex})">
+                  <div class="workload-project-priority ${project.prioritized === 'Yes' ? 'prioritized' : ''}"></div>
+                  <div class="workload-project-name">${escapeHtml(project.projectActivityName || '-')}</div>
+                  <span class="workload-project-status ${getStatusClass(project.status)}">${escapeHtml(project.status || 'Unknown')}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Close team selector when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.team-selector')) {
+        document.getElementById('teamSelectorDropdown').classList.remove('show');
       }
     });
   </script>
