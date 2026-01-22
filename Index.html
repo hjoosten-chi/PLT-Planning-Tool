@@ -1292,6 +1292,298 @@
     .group-collapsed .group-row {
       display: none;
     }
+
+    /* Clickable Stat Cards */
+    .stat-card {
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card.active {
+      border: 2px solid var(--primary);
+      box-shadow: var(--shadow-md), 0 0 0 3px rgba(26, 115, 232, 0.1);
+    }
+
+    .stat-card.active::after {
+      content: '✓';
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 20px;
+      height: 20px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .stat-progress {
+      margin-top: 12px;
+      background: var(--gray-200);
+      height: 6px;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .stat-progress-bar {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.5s ease-out;
+    }
+
+    .stat-card.success .stat-progress-bar { background: var(--success); }
+    .stat-card.primary .stat-progress-bar { background: var(--primary); }
+    .stat-card.danger .stat-progress-bar { background: var(--danger); }
+    .stat-card.warning .stat-progress-bar { background: var(--warning); }
+    .stat-card .stat-progress-bar { background: var(--gray-500); }
+
+    .active-filter-banner {
+      display: none;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      background: rgba(26, 115, 232, 0.1);
+      border: 1px solid rgba(26, 115, 232, 0.2);
+      border-radius: var(--radius);
+      margin-bottom: 16px;
+    }
+
+    .active-filter-banner.show {
+      display: flex;
+    }
+
+    .active-filter-banner .filter-text {
+      flex: 1;
+      font-size: 14px;
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    .active-filter-banner .clear-filter-btn {
+      padding: 6px 12px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .active-filter-banner .clear-filter-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    /* Project Detail Panel */
+    .detail-panel-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 500;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+
+    .detail-panel-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .detail-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 480px;
+      max-width: 100%;
+      background: white;
+      z-index: 501;
+      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+      transform: translateX(100%);
+      transition: transform 0.3s ease-out;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .detail-panel.show {
+      transform: translateX(0);
+    }
+
+    .detail-panel-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .detail-panel-header-content {
+      flex: 1;
+    }
+
+    .detail-panel-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin-bottom: 4px;
+    }
+
+    .detail-panel-subtitle {
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    .detail-panel-close {
+      width: 36px;
+      height: 36px;
+      border: none;
+      background: var(--gray-100);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--gray-600);
+      transition: all 0.2s;
+    }
+
+    .detail-panel-close:hover {
+      background: var(--gray-200);
+      color: var(--gray-800);
+    }
+
+    .detail-panel-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+    }
+
+    .detail-section {
+      margin-bottom: 24px;
+    }
+
+    .detail-section-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+
+    .detail-field {
+      margin-bottom: 16px;
+    }
+
+    .detail-field-label {
+      font-size: 12px;
+      color: var(--gray-500);
+      margin-bottom: 4px;
+    }
+
+    .detail-field-value {
+      font-size: 14px;
+      color: var(--gray-800);
+      line-height: 1.5;
+    }
+
+    .detail-field-value.large {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    /* Quick Status Buttons */
+    .status-buttons {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .status-btn {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .status-btn.completed {
+      background: #e6f4ea;
+      color: #137333;
+      border-color: #e6f4ea;
+    }
+
+    .status-btn.completed:hover,
+    .status-btn.completed.active {
+      background: #137333;
+      color: white;
+      border-color: #137333;
+    }
+
+    .status-btn.on-track {
+      background: #e8f0fe;
+      color: #1967d2;
+      border-color: #e8f0fe;
+    }
+
+    .status-btn.on-track:hover,
+    .status-btn.on-track.active {
+      background: #1967d2;
+      color: white;
+      border-color: #1967d2;
+    }
+
+    .status-btn.at-risk {
+      background: #fce8e6;
+      color: #c5221f;
+      border-color: #fce8e6;
+    }
+
+    .status-btn.at-risk:hover,
+    .status-btn.at-risk.active {
+      background: #c5221f;
+      color: white;
+      border-color: #c5221f;
+    }
+
+    .detail-panel-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--gray-200);
+      display: flex;
+      gap: 12px;
+    }
+
+    .detail-panel-footer .btn {
+      flex: 1;
+    }
+
+    /* Timeline row clickable */
+    .timeline-project-row,
+    table tbody tr:not(.group-header-row) {
+      cursor: pointer;
+    }
+
+    table tbody tr:not(.group-header-row):hover {
+      background: var(--gray-50);
+    }
+
+    /* Responsive detail panel */
+    @media (max-width: 520px) {
+      .detail-panel {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1327,26 +1619,55 @@
 
     <!-- Stats Cards -->
     <div class="stats-grid" id="statsGrid">
-      <div class="stat-card">
+      <div class="stat-card" data-filter="total" onclick="filterByStatCard('total')">
         <div class="label">Total Projects</div>
         <div class="value" id="statTotal">-</div>
+        <div class="stat-progress">
+          <div class="stat-progress-bar" id="progressTotal" style="width: 100%;"></div>
+        </div>
       </div>
-      <div class="stat-card success">
+      <div class="stat-card success" data-filter="completed" onclick="filterByStatCard('completed')">
         <div class="label">Completed</div>
         <div class="value" id="statCompleted">-</div>
+        <div class="subtext" id="statCompletedPercent">-</div>
+        <div class="stat-progress">
+          <div class="stat-progress-bar" id="progressCompleted" style="width: 0%;"></div>
+        </div>
       </div>
-      <div class="stat-card primary">
+      <div class="stat-card primary" data-filter="onTrack" onclick="filterByStatCard('onTrack')">
         <div class="label">On Track</div>
         <div class="value" id="statOnTrack">-</div>
+        <div class="subtext" id="statOnTrackPercent">-</div>
+        <div class="stat-progress">
+          <div class="stat-progress-bar" id="progressOnTrack" style="width: 0%;"></div>
+        </div>
       </div>
-      <div class="stat-card danger">
+      <div class="stat-card danger" data-filter="atRisk" onclick="filterByStatCard('atRisk')">
         <div class="label">At Risk</div>
         <div class="value" id="statAtRisk">-</div>
+        <div class="subtext" id="statAtRiskPercent">-</div>
+        <div class="stat-progress">
+          <div class="stat-progress-bar" id="progressAtRisk" style="width: 0%;"></div>
+        </div>
       </div>
-      <div class="stat-card warning">
+      <div class="stat-card warning" data-filter="pltHelp" onclick="filterByStatCard('pltHelp')">
         <div class="label">PLT Help Needed</div>
         <div class="value" id="statPltHelp">-</div>
+        <div class="subtext" id="statPltHelpPercent">-</div>
+        <div class="stat-progress">
+          <div class="stat-progress-bar" id="progressPltHelp" style="width: 0%;"></div>
+        </div>
       </div>
+    </div>
+
+    <!-- Active Filter Banner -->
+    <div class="active-filter-banner" id="activeFilterBanner">
+      <span class="material-icons" style="color: var(--primary);">filter_alt</span>
+      <span class="filter-text" id="activeFilterText">Filtering by: Status</span>
+      <button class="clear-filter-btn" onclick="clearStatCardFilter()">
+        <span class="material-icons" style="font-size: 14px; vertical-align: middle; margin-right: 4px;">close</span>
+        Clear Filter
+      </button>
     </div>
 
     <!-- Filters -->
@@ -1614,6 +1935,124 @@
   <!-- Toast -->
   <div class="toast" id="toast"></div>
 
+  <!-- Project Detail Panel Overlay -->
+  <div class="detail-panel-overlay" id="detailPanelOverlay" onclick="closeDetailPanel()"></div>
+
+  <!-- Project Detail Panel -->
+  <div class="detail-panel" id="detailPanel">
+    <div class="detail-panel-header">
+      <div class="detail-panel-header-content">
+        <div class="detail-panel-title" id="detailPanelTitle">Project Name</div>
+        <div class="detail-panel-subtitle" id="detailPanelSubtitle">Category • Effort</div>
+      </div>
+      <button class="detail-panel-close" onclick="closeDetailPanel()">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+    <div class="detail-panel-body">
+      <!-- Quick Status Update -->
+      <div class="detail-section">
+        <div class="detail-section-title">Quick Status Update</div>
+        <div class="status-buttons" id="statusButtons">
+          <button class="status-btn completed" onclick="updateProjectStatusQuick('Completed')">
+            <span class="material-icons" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">check_circle</span>
+            Completed
+          </button>
+          <button class="status-btn on-track" onclick="updateProjectStatusQuick('On Track')">
+            <span class="material-icons" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">trending_up</span>
+            On Track
+          </button>
+          <button class="status-btn at-risk" onclick="updateProjectStatusQuick('At Risk')">
+            <span class="material-icons" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">warning</span>
+            At Risk
+          </button>
+        </div>
+      </div>
+
+      <!-- Project Details -->
+      <div class="detail-section">
+        <div class="detail-section-title">Project Details</div>
+
+        <div class="detail-field">
+          <div class="detail-field-label">Project / Activity Name</div>
+          <div class="detail-field-value large" id="detailProjectName">-</div>
+        </div>
+
+        <div class="detail-field">
+          <div class="detail-field-label">Deliverable</div>
+          <div class="detail-field-value" id="detailDeliverable">-</div>
+        </div>
+
+        <div class="detail-field">
+          <div class="detail-field-label">Current Status</div>
+          <div class="detail-field-value" id="detailStatus">-</div>
+        </div>
+
+        <div class="detail-field">
+          <div class="detail-field-label">PLT Help Needed</div>
+          <div class="detail-field-value" id="detailPltHelp">-</div>
+        </div>
+      </div>
+
+      <!-- Timeline -->
+      <div class="detail-section">
+        <div class="detail-section-title">Timeline</div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="detail-field">
+            <div class="detail-field-label">Start Date</div>
+            <div class="detail-field-value" id="detailStartDate">-</div>
+          </div>
+          <div class="detail-field">
+            <div class="detail-field-label">End Date</div>
+            <div class="detail-field-value" id="detailEndDate">-</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ownership -->
+      <div class="detail-section">
+        <div class="detail-section-title">Ownership</div>
+
+        <div class="detail-field">
+          <div class="detail-field-label">Functional Owner</div>
+          <div class="detail-field-value" id="detailFunctionalOwner">-</div>
+        </div>
+
+        <div class="detail-field">
+          <div class="detail-field-label">Program Owner / Lead Contact</div>
+          <div class="detail-field-value" id="detailProgramOwner">-</div>
+        </div>
+      </div>
+
+      <!-- Additional Info -->
+      <div class="detail-section">
+        <div class="detail-section-title">Additional Information</div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="detail-field">
+            <div class="detail-field-label">Category</div>
+            <div class="detail-field-value" id="detailCategory">-</div>
+          </div>
+          <div class="detail-field">
+            <div class="detail-field-label">Effort</div>
+            <div class="detail-field-value" id="detailEffort">-</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="detail-panel-footer">
+      <button class="btn btn-secondary" onclick="closeDetailPanel()">
+        <span class="material-icons" style="font-size: 18px;">close</span>
+        Close
+      </button>
+      <button class="btn btn-primary" onclick="openInSpreadsheet()">
+        <span class="material-icons" style="font-size: 18px;">open_in_new</span>
+        Edit in Sheet
+      </button>
+    </div>
+  </div>
+
   <script>
     // Global state
     let allProjects = [];
@@ -1626,6 +2065,8 @@
     let timelineStartDate = new Date(2026, 0, 1); // January 2026
     let timelineMonths = 3; // Show 3 months at a time
     let collapsedGroups = new Set(); // Track collapsed groups
+    let activeStatFilter = null; // Track active stat card filter
+    let currentDetailProject = null; // Track currently viewed project in detail panel
 
     // Initialize on load
     document.addEventListener('DOMContentLoaded', init);
@@ -1728,6 +2169,15 @@
       const effort = document.getElementById('filterEffort').value;
 
       filteredProjects = allProjects.filter(project => {
+        // Stat card filter (takes precedence)
+        if (activeStatFilter) {
+          if (activeStatFilter === 'completed' && project.status !== 'Completed') return false;
+          if (activeStatFilter === 'onTrack' && project.status !== 'On Track') return false;
+          if (activeStatFilter === 'atRisk' && project.status !== 'At Risk') return false;
+          if (activeStatFilter === 'pltHelp' && project.pltHelpNeeded !== 'Yes') return false;
+          // 'total' shows all, so no filter needed
+        }
+
         // Search filter
         if (search) {
           const searchFields = [
@@ -1906,7 +2356,7 @@
 
     function renderTableRow(project, index) {
       return `
-        <tr class="group-row">
+        <tr class="group-row" onclick="openDetailPanel(${project.rowIndex})">
           <td>${index}</td>
           <td><strong>${escapeHtml(project.projectActivityName || '-')}</strong></td>
           <td>${getCategoryBadge(project.category)}</td>
@@ -2031,11 +2481,79 @@
         pltHelp: allProjects.filter(p => p.pltHelpNeeded === 'Yes').length
       };
 
+      const total = stats.total || 1; // Avoid division by zero
+
+      // Update values
       document.getElementById('statTotal').textContent = stats.total;
       document.getElementById('statCompleted').textContent = stats.completed;
       document.getElementById('statOnTrack').textContent = stats.onTrack;
       document.getElementById('statAtRisk').textContent = stats.atRisk;
       document.getElementById('statPltHelp').textContent = stats.pltHelp;
+
+      // Update percentages
+      document.getElementById('statCompletedPercent').textContent = `${Math.round((stats.completed / total) * 100)}% of total`;
+      document.getElementById('statOnTrackPercent').textContent = `${Math.round((stats.onTrack / total) * 100)}% of total`;
+      document.getElementById('statAtRiskPercent').textContent = `${Math.round((stats.atRisk / total) * 100)}% of total`;
+      document.getElementById('statPltHelpPercent').textContent = `${Math.round((stats.pltHelp / total) * 100)}% of total`;
+
+      // Update progress bars
+      document.getElementById('progressTotal').style.width = '100%';
+      document.getElementById('progressCompleted').style.width = `${(stats.completed / total) * 100}%`;
+      document.getElementById('progressOnTrack').style.width = `${(stats.onTrack / total) * 100}%`;
+      document.getElementById('progressAtRisk').style.width = `${(stats.atRisk / total) * 100}%`;
+      document.getElementById('progressPltHelp').style.width = `${(stats.pltHelp / total) * 100}%`;
+    }
+
+    // Stat Card Filter Functions
+    function filterByStatCard(filterType) {
+      // If clicking the same filter, toggle it off
+      if (activeStatFilter === filterType) {
+        clearStatCardFilter();
+        return;
+      }
+
+      activeStatFilter = filterType;
+
+      // Update active card styling
+      document.querySelectorAll('.stat-card').forEach(card => {
+        card.classList.remove('active');
+        if (card.dataset.filter === filterType) {
+          card.classList.add('active');
+        }
+      });
+
+      // Show filter banner
+      const banner = document.getElementById('activeFilterBanner');
+      const filterText = document.getElementById('activeFilterText');
+
+      const filterLabels = {
+        total: 'All Projects',
+        completed: 'Completed Projects',
+        onTrack: 'On Track Projects',
+        atRisk: 'At Risk Projects',
+        pltHelp: 'Projects Needing PLT Help'
+      };
+
+      filterText.textContent = `Filtering by: ${filterLabels[filterType]}`;
+      banner.classList.add('show');
+
+      // Apply the filter
+      applyFilters();
+    }
+
+    function clearStatCardFilter() {
+      activeStatFilter = null;
+
+      // Remove active styling from all cards
+      document.querySelectorAll('.stat-card').forEach(card => {
+        card.classList.remove('active');
+      });
+
+      // Hide filter banner
+      document.getElementById('activeFilterBanner').classList.remove('show');
+
+      // Reapply filters
+      applyFilters();
     }
 
     function updateTableInfo() {
@@ -2054,6 +2572,9 @@
       // Clear column filters
       columnFilters = {};
       updateFilterIcons();
+
+      // Clear stat card filter
+      clearStatCardFilter();
 
       // Reset sort
       currentSort = { column: null, direction: 'asc' };
@@ -2593,12 +3114,120 @@
     }
 
     function showProjectDetails(rowIndex) {
-      // Find the project and could show a modal or scroll to it in table view
-      const project = allProjects.find(p => p.rowIndex === rowIndex);
-      if (project) {
-        showToast(`${project.projectActivityName}: ${project.status || 'No status'}`, 'info');
-      }
+      openDetailPanel(rowIndex);
     }
+
+    // ==================== Detail Panel Functions ====================
+
+    function openDetailPanel(rowIndex) {
+      const project = allProjects.find(p => p.rowIndex === rowIndex);
+      if (!project) {
+        showToast('Project not found', 'error');
+        return;
+      }
+
+      currentDetailProject = project;
+
+      // Populate panel content
+      document.getElementById('detailPanelTitle').textContent = project.projectActivityName || 'Untitled Project';
+      document.getElementById('detailPanelSubtitle').textContent = `${project.category || 'No Category'} • Effort: ${project.effort || 'N/A'}`;
+
+      document.getElementById('detailProjectName').textContent = project.projectActivityName || '-';
+      document.getElementById('detailDeliverable').textContent = project.deliverable || '-';
+      document.getElementById('detailStatus').innerHTML = getStatusBadge(project.status);
+      document.getElementById('detailPltHelp').innerHTML = getPltHelpBadge(project.pltHelpNeeded);
+      document.getElementById('detailStartDate').textContent = project.startDate || '-';
+      document.getElementById('detailEndDate').textContent = project.endDate || '-';
+      document.getElementById('detailFunctionalOwner').textContent = project.functionalOwnerOfDeliverable || '-';
+      document.getElementById('detailProgramOwner').textContent = project.programOwnerLeadContact || '-';
+      document.getElementById('detailCategory').innerHTML = getCategoryBadge(project.category);
+      document.getElementById('detailEffort').innerHTML = getEffortBadge(project.effort);
+
+      // Update status button active states
+      updateStatusButtonStates(project.status);
+
+      // Show panel
+      document.getElementById('detailPanelOverlay').classList.add('show');
+      document.getElementById('detailPanel').classList.add('show');
+      document.body.style.overflow = 'hidden'; // Prevent background scroll
+    }
+
+    function closeDetailPanel() {
+      document.getElementById('detailPanelOverlay').classList.remove('show');
+      document.getElementById('detailPanel').classList.remove('show');
+      document.body.style.overflow = ''; // Restore scroll
+      currentDetailProject = null;
+    }
+
+    function updateStatusButtonStates(currentStatus) {
+      const buttons = document.querySelectorAll('.status-btn');
+      buttons.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.classList.contains('completed') && currentStatus === 'Completed') {
+          btn.classList.add('active');
+        } else if (btn.classList.contains('on-track') && currentStatus === 'On Track') {
+          btn.classList.add('active');
+        } else if (btn.classList.contains('at-risk') && currentStatus === 'At Risk') {
+          btn.classList.add('active');
+        }
+      });
+    }
+
+    function updateProjectStatusQuick(newStatus) {
+      if (!currentDetailProject) return;
+
+      const rowIndex = currentDetailProject.rowIndex;
+      showToast(`Updating status to ${newStatus}...`, 'info');
+
+      google.script.run
+        .withSuccessHandler(function(result) {
+          if (result.error) {
+            showToast('Error: ' + result.error, 'error');
+            return;
+          }
+
+          // Update local data
+          const projectIndex = allProjects.findIndex(p => p.rowIndex === rowIndex);
+          if (projectIndex !== -1) {
+            allProjects[projectIndex].status = newStatus;
+            currentDetailProject = allProjects[projectIndex];
+          }
+
+          // Update UI
+          document.getElementById('detailStatus').innerHTML = getStatusBadge(newStatus);
+          updateStatusButtonStates(newStatus);
+          updateStats();
+          applyFilters();
+
+          showToast(`Status updated to ${newStatus}`, 'success');
+        })
+        .withFailureHandler(function(error) {
+          showToast('Error updating status: ' + error, 'error');
+        })
+        .updateProjectStatus(rowIndex, newStatus);
+    }
+
+    function openInSpreadsheet() {
+      google.script.run
+        .withSuccessHandler(function(url) {
+          if (url) {
+            window.open(url, '_blank');
+          } else {
+            showToast('Could not get spreadsheet URL', 'error');
+          }
+        })
+        .withFailureHandler(function(error) {
+          showToast('Error: ' + error, 'error');
+        })
+        .getSpreadsheetUrl();
+    }
+
+    // Close detail panel on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeDetailPanel();
+      }
+    });
   </script>
 </body>
 </html>
