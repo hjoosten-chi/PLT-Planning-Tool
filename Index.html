@@ -1147,6 +1147,151 @@
       outline: none;
       border-color: var(--primary);
     }
+
+    /* Group By Styles */
+    .group-by-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .group-by-label {
+      font-size: 13px;
+      color: var(--gray-600);
+    }
+
+    .group-by-select {
+      padding: 8px 12px;
+      border: 1px solid var(--gray-300);
+      border-radius: 6px;
+      font-size: 13px;
+      color: var(--gray-700);
+      background: white;
+      cursor: pointer;
+    }
+
+    .group-by-select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    /* Group Header Row */
+    .group-header-row {
+      background: linear-gradient(135deg, var(--gray-100) 0%, var(--gray-50) 100%);
+    }
+
+    .group-header-row td {
+      padding: 12px 16px;
+      font-weight: 600;
+      color: var(--gray-800);
+      border-bottom: 2px solid var(--gray-200);
+    }
+
+    .group-header-content {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .group-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .group-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .group-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-800);
+    }
+
+    .group-count {
+      font-size: 12px;
+      color: var(--gray-500);
+      font-weight: 400;
+    }
+
+    .group-stats {
+      display: flex;
+      gap: 16px;
+      margin-left: auto;
+    }
+
+    .group-stat {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: var(--gray-600);
+    }
+
+    .group-stat-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .group-stat-dot.completed { background: var(--success); }
+    .group-stat-dot.on-track { background: var(--primary); }
+    .group-stat-dot.at-risk { background: var(--danger); }
+
+    /* Timeline Group Header */
+    .timeline-group-header {
+      height: 40px;
+      background: linear-gradient(135deg, var(--gray-100) 0%, var(--gray-50) 100%);
+      border-bottom: 2px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 12px;
+    }
+
+    .timeline-group-header .group-avatar {
+      width: 28px;
+      height: 28px;
+      font-size: 11px;
+    }
+
+    .timeline-group-header .group-name {
+      font-size: 13px;
+    }
+
+    .timeline-group-header .group-count {
+      font-size: 11px;
+    }
+
+    .timeline-group-chart-header {
+      height: 40px;
+      background: linear-gradient(135deg, var(--gray-100) 0%, var(--gray-50) 100%);
+      border-bottom: 2px solid var(--gray-200);
+      display: flex;
+    }
+
+    /* Collapsible Groups */
+    .group-toggle {
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .group-toggle.collapsed {
+      transform: rotate(-90deg);
+    }
+
+    .group-collapsed .group-row {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -1257,16 +1402,28 @@
     </div>
 
     <!-- View Toggle -->
-    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
-      <div class="view-toggle">
-        <button class="view-toggle-btn active" id="tableViewBtn" onclick="switchDisplayView('table')">
-          <span class="material-icons">table_rows</span>
-          Table
-        </button>
-        <button class="view-toggle-btn" id="timelineViewBtn" onclick="switchDisplayView('timeline')">
-          <span class="material-icons">view_timeline</span>
-          Timeline
-        </button>
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <div class="view-toggle">
+          <button class="view-toggle-btn active" id="tableViewBtn" onclick="switchDisplayView('table')">
+            <span class="material-icons">table_rows</span>
+            Table
+          </button>
+          <button class="view-toggle-btn" id="timelineViewBtn" onclick="switchDisplayView('timeline')">
+            <span class="material-icons">view_timeline</span>
+            Timeline
+          </button>
+        </div>
+        <div class="group-by-container">
+          <span class="group-by-label">Group by:</span>
+          <select class="group-by-select" id="groupBySelect" onchange="applyFilters()">
+            <option value="">None</option>
+            <option value="functionalOwnerOfDeliverable">Functional Owner</option>
+            <option value="programOwnerLeadContact">Program Owner</option>
+            <option value="category">Category</option>
+            <option value="status">Status</option>
+          </select>
+        </div>
       </div>
       <span class="table-info" id="tableInfo">Loading...</span>
     </div>
@@ -1468,6 +1625,7 @@
     let currentDisplayView = 'table';
     let timelineStartDate = new Date(2026, 0, 1); // January 2026
     let timelineMonths = 3; // Show 3 months at a time
+    let collapsedGroups = new Set(); // Track collapsed groups
 
     // Initialize on load
     document.addEventListener('DOMContentLoaded', init);
@@ -1676,6 +1834,7 @@
 
     function renderTable() {
       const tbody = document.getElementById('projectsBody');
+      const groupBy = document.getElementById('groupBySelect').value;
 
       if (filteredProjects.length === 0) {
         tbody.innerHTML = `
@@ -1691,9 +1850,64 @@
         return;
       }
 
-      tbody.innerHTML = filteredProjects.map((project, index) => `
-        <tr>
-          <td>${index + 1}</td>
+      // If no grouping, render flat list
+      if (!groupBy) {
+        tbody.innerHTML = filteredProjects.map((project, index) => renderTableRow(project, index + 1)).join('');
+        return;
+      }
+
+      // Group projects
+      const groups = groupProjects(filteredProjects, groupBy);
+      let html = '';
+      let rowIndex = 1;
+
+      groups.forEach(group => {
+        const isCollapsed = collapsedGroups.has(group.name);
+        const stats = getGroupStats(group.projects);
+
+        html += `
+          <tr class="group-header-row" onclick="toggleGroup('${escapeHtml(group.name)}')" style="cursor: pointer;">
+            <td colspan="10">
+              <div class="group-header-content">
+                <span class="material-icons group-toggle ${isCollapsed ? 'collapsed' : ''}" style="font-size: 20px; color: var(--gray-500);">expand_more</span>
+                <div class="group-avatar">${getInitials(group.name)}</div>
+                <div class="group-info">
+                  <span class="group-name">${escapeHtml(group.name)}</span>
+                  <span class="group-count">${group.projects.length} project${group.projects.length !== 1 ? 's' : ''}</span>
+                </div>
+                <div class="group-stats">
+                  <div class="group-stat">
+                    <span class="group-stat-dot completed"></span>
+                    <span>${stats.completed} Completed</span>
+                  </div>
+                  <div class="group-stat">
+                    <span class="group-stat-dot on-track"></span>
+                    <span>${stats.onTrack} On Track</span>
+                  </div>
+                  <div class="group-stat">
+                    <span class="group-stat-dot at-risk"></span>
+                    <span>${stats.atRisk} At Risk</span>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        `;
+
+        if (!isCollapsed) {
+          group.projects.forEach(project => {
+            html += renderTableRow(project, rowIndex++);
+          });
+        }
+      });
+
+      tbody.innerHTML = html;
+    }
+
+    function renderTableRow(project, index) {
+      return `
+        <tr class="group-row">
+          <td>${index}</td>
           <td><strong>${escapeHtml(project.projectActivityName || '-')}</strong></td>
           <td>${getCategoryBadge(project.category)}</td>
           <td class="deliverable-cell" title="${escapeHtml(project.deliverable || '')}">${escapeHtml(project.deliverable || '-')}</td>
@@ -1704,7 +1918,49 @@
           <td>${escapeHtml(project.programOwnerLeadContact || '-')}</td>
           <td>${getEffortBadge(project.effort)}</td>
         </tr>
-      `).join('');
+      `;
+    }
+
+    function groupProjects(projects, groupByField) {
+      const groupMap = new Map();
+
+      projects.forEach(project => {
+        const key = project[groupByField] || 'Unassigned';
+        if (!groupMap.has(key)) {
+          groupMap.set(key, []);
+        }
+        groupMap.get(key).push(project);
+      });
+
+      // Sort groups by name
+      return Array.from(groupMap.entries())
+        .sort((a, b) => a[0].localeCompare(b[0]))
+        .map(([name, projects]) => ({ name, projects }));
+    }
+
+    function getGroupStats(projects) {
+      return {
+        completed: projects.filter(p => p.status === 'Completed').length,
+        onTrack: projects.filter(p => p.status === 'On Track').length,
+        atRisk: projects.filter(p => p.status === 'At Risk').length
+      };
+    }
+
+    function getInitials(name) {
+      if (!name) return '?';
+      return name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+    }
+
+    function toggleGroup(groupName) {
+      if (collapsedGroups.has(groupName)) {
+        collapsedGroups.delete(groupName);
+      } else {
+        collapsedGroups.add(groupName);
+      }
+      renderTable();
+      if (currentDisplayView === 'timeline') {
+        renderTimeline();
+      }
     }
 
     function getStatusBadge(status) {
@@ -2034,6 +2290,7 @@
     function renderTimeline() {
       const container = document.getElementById('timelineGrid');
       const colorBy = document.getElementById('colorBySelect').value;
+      const groupBy = document.getElementById('groupBySelect').value;
 
       // Update period display
       updateTimelinePeriod();
@@ -2075,16 +2332,70 @@
       // Calculate total days for percentage calculations
       const totalDays = months.reduce((sum, m) => sum + m.days, 0);
 
+      // Build project rows HTML (with or without grouping)
+      let projectRowsHtml = '';
+      let chartRowsHtml = '';
+
+      if (!groupBy) {
+        // No grouping - render flat list
+        projectRowsHtml = projectsWithDates.map(project => `
+          <div class="timeline-project-row" onclick="showProjectDetails(${project.rowIndex})">
+            ${project.category ? `<span class="timeline-project-category ${getCategoryClass(project.category)}">${escapeHtml(project.category)}</span>` : ''}
+            <span class="timeline-project-name" title="${escapeHtml(project.projectActivityName || '')}">${escapeHtml(project.projectActivityName || '-')}</span>
+          </div>
+        `).join('');
+        chartRowsHtml = projectsWithDates.map(project => renderTimelineRow(project, months, totalDays, colorBy)).join('');
+      } else {
+        // With grouping
+        const groups = groupProjects(projectsWithDates, groupBy);
+
+        groups.forEach(group => {
+          const isCollapsed = collapsedGroups.has(group.name);
+          const stats = getGroupStats(group.projects);
+
+          // Group header for left panel
+          projectRowsHtml += `
+            <div class="timeline-group-header" onclick="toggleGroup('${escapeHtml(group.name)}')" style="cursor: pointer;">
+              <span class="material-icons group-toggle ${isCollapsed ? 'collapsed' : ''}" style="font-size: 18px; color: var(--gray-500);">expand_more</span>
+              <div class="group-avatar">${getInitials(group.name)}</div>
+              <div class="group-info">
+                <span class="group-name">${escapeHtml(group.name)}</span>
+                <span class="group-count">${group.projects.length} projects</span>
+              </div>
+            </div>
+          `;
+
+          // Group header for chart panel (empty row for alignment)
+          chartRowsHtml += `
+            <div class="timeline-group-chart-header" onclick="toggleGroup('${escapeHtml(group.name)}')" style="cursor: pointer;">
+              ${months.map(m => `<div style="flex: ${m.days}; display: flex; align-items: center; padding-left: 8px;">
+                <span style="font-size: 11px; color: var(--gray-500);">
+                  ${stats.completed} ✓ ${stats.onTrack} → ${stats.atRisk} ⚠
+                </span>
+              </div>`).join('')}
+            </div>
+          `;
+
+          // Project rows (if not collapsed)
+          if (!isCollapsed) {
+            group.projects.forEach(project => {
+              projectRowsHtml += `
+                <div class="timeline-project-row" onclick="showProjectDetails(${project.rowIndex})">
+                  ${project.category ? `<span class="timeline-project-category ${getCategoryClass(project.category)}">${escapeHtml(project.category)}</span>` : ''}
+                  <span class="timeline-project-name" title="${escapeHtml(project.projectActivityName || '')}">${escapeHtml(project.projectActivityName || '-')}</span>
+                </div>
+              `;
+              chartRowsHtml += renderTimelineRow(project, months, totalDays, colorBy);
+            });
+          }
+        });
+      }
+
       // Build HTML
       let html = `
         <div class="timeline-projects">
           <div class="timeline-projects-header">Project / Activity</div>
-          ${projectsWithDates.map(project => `
-            <div class="timeline-project-row" onclick="showProjectDetails(${project.rowIndex})">
-              ${project.category ? `<span class="timeline-project-category ${getCategoryClass(project.category)}">${escapeHtml(project.category)}</span>` : ''}
-              <span class="timeline-project-name" title="${escapeHtml(project.projectActivityName || '')}">${escapeHtml(project.projectActivityName || '-')}</span>
-            </div>
-          `).join('')}
+          ${projectRowsHtml}
         </div>
         <div class="timeline-chart">
           <div class="timeline-months-header">
@@ -2102,7 +2413,7 @@
               </div>
             `).join('')}
           </div>
-          ${projectsWithDates.map(project => renderTimelineRow(project, months, totalDays, colorBy)).join('')}
+          ${chartRowsHtml}
         </div>
       `;
 
